@@ -55,6 +55,18 @@
                 </tr>
             </thead>
             <tbody id="content-table">
+                {{#each }}
+                <tr>
+                    <td>{{this.name}}</td>
+                    <td>{{this.reps}}</td>
+                    <td>{{this.weight}}</td>
+                    <td>{{this.date}}</td>
+                    <td>{{this.unit}}</td>
+                    <td>{{this.name}}</td>
+                    <td>{{this.name}}</td>
+                    <td>{{this.name}}</td>
+                </tr>
+                {{/each}}
             </tbody>
 
         </table>

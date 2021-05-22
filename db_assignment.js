@@ -31,7 +31,7 @@ app.get('/', function (req, res, next) {
     }
     context.results = JSON.stringify(query_result);
     //res.sendFile(__dirname + '/home.html', context);
-    res.send(context)
+    res.render("home", context)
   });
 });
 
