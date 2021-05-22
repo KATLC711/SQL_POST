@@ -12,23 +12,9 @@ app.set('port', 3636);
 
 
 
-app.get('/', function (req, res, next) {
-  var context = {};
-  mysql.pool.query('SELECT * FROM exercise', function (err, rows, fields) {
-    if (err) {
-      next(err);
-      return;
-    }
-    console.log(rows)
-    query_result = []
-    for (i = 0; i < rows.length; i++) {
-      query_result.push({ 'id': rows[i].id, 'name': rows[i].name, 'reps': rows[i].reps, 'weight': rows[i].weight, 'date': getFormattedDate(rows[i].date), 'unit': rows[i].unit })
-    }
-    context.results = JSON.stringify(rows);
-    res.render("home");
-  });
-});
-
+app.post('/', function (req, res) {
+  res.send('POST request to homepage')
+})
 
 
 
