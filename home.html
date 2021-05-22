@@ -308,8 +308,8 @@
                 let record_id = rows[i].id
                 var TBodyContent = document.createElement("td")
                 var delete_btn = document.createElement('button');
-                delete_btn.innerHTML = 'Delete - GET';
-                delete_btn.onclick = function () {
+                delete_btn_get.innerHTML = 'Delete - GET';
+                delete_btn_get.onclick = function () {
 
                     var req = new XMLHttpRequest();
                     req.open('GET', '/delete_get?id=' + record_id, true);
@@ -335,9 +335,10 @@
 
                 var TBodyContent = document.createElement("td")
                 var delete_btn = document.createElement('button');
-                delete_btn.innerHTML = 'Delete - POST';
-                delete_btn.onclick = function () {
+                delete_btn_post.innerHTML = 'Delete - POST';
+                delete_btn_post.onclick = function () {
 
+                    var req = new XMLHttpRequest();
                     var delete_data = {}
                     delete_data.id = record_id
                     req.open('POST', '/delete_post', true);
