@@ -446,17 +446,17 @@
 
             document.getElementById("edit-form").style.display = "block";
             document.getElementById("edit-id").value = id;
-            document.getElementById("edit-name").defaultValue = name;
+            document.getElementById("edit-name").defaultValue = "";
 
 
             if (reps != -1) {
-                document.getElementById("edit-reps").defaultValue = reps
+                document.getElementById("edit-reps").defaultValue = ""
             } else {
                 document.getElementById("edit-reps").defaultValue = ""
             }
 
             if (weight != -1) {
-                document.getElementById("edit-weight").defaultValue = weight
+                document.getElementById("edit-weight").defaultValue = ""
             } else {
                 document.getElementById("edit-weight").defaultValue = ""
             }
@@ -464,7 +464,7 @@
 
 
             if (getFormattedDateYMR(date) != "9999-12-31") {
-                document.getElementById("edit-date").defaultValue = getFormattedDateYMR(date)
+                document.getElementById("edit-date").defaultValue = ""
             } else {
                 document.getElementById("edit-date").defaultValue = ""
             }
