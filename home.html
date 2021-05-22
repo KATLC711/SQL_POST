@@ -113,7 +113,7 @@
                     console.log("Error in network request: " + req.statusText);
                 }
             });
-            req.send(null);
+            req.render("home", context);
 
         };
 

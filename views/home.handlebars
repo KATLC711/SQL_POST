@@ -28,7 +28,8 @@
             <input type="radio" id="kg" name="unit" value="kg">kg
             <input type="radio" id="lbs" name="unit" value="lbs">lbs
             <input type="radio" style="display:none" id="na" name="unit" value="na" checked><br>
-            <button type="submit" id='submit'>SUBMIT</button>
+            <button type="submit" id='insert-submit-get'>Submit with GET</button>
+            <button type="submit" id='insert-submit-post'>Submit with POST</button>
         </form>
     </div>
 
@@ -37,6 +38,9 @@
 
     <div class="content-table">
         <h1>Here's your table</h1>
+        <button type="button" onclick="PullData_GET()">PULL-GET</button>
+        <button type="button" onclick="PullData_POST()">PULL-POST</button>
+        <br>
         <table>
             <thead>
                 <tr>
@@ -45,15 +49,12 @@
                     <th>Weight</th>
                     <th>Date</th>
                     <th>Unit</th>
-                    <th>Delete</th>
+                    <th>Delete-GET</th>
+                    <th>Delete-POST</th>
                     <th>Edit</th>
                 </tr>
             </thead>
             <tbody id="content-table">
-
-
-
-
             </tbody>
 
         </table>
@@ -80,7 +81,8 @@
             <input type="radio" style="display:none" id="edit-na" name="edit-unit" value="na"><br>
 
 
-            <button type="submit" id='edit-submit'>SUBMIT</button>
+            <button type="submit" id='edit-submit-get'>Submit with GET</button>
+            <button type="submit" id='edit-submit-post'>Submit with POST</button>
             <button type="button" onclick="closeEditForm()">Close</button>
         </form>
 
@@ -92,119 +94,19 @@
     <script>
 
 
-
-
-
-        PullData();
-
-        document.getElementById('edit-submit').addEventListener('click', function (event) {
-            var name = document.getElementById('edit-name').value;
-
-            if (name != "") {
-                var req = new XMLHttpRequest();
-                var id = document.getElementById('edit-id').value;
-                var reps = document.getElementById('edit-reps').value;
-                var weight = document.getElementById('edit-weight').value;
-                var date = document.getElementById('edit-date').value;
-                var unit = document.querySelector('input[name = "edit-unit"]:checked').value;
-
-
-                console.log(name, reps, weight, date, unit)
-                if (reps == "") {
-                    reps = -1
-                }
-                if (weight == "") {
-                    weight = -1
-                }
-                if (date == "") {
-                    date = "9999-12-31"
-                }
-
-                req.open('GET', '/edit?id=' + id + '&name=' + name + '&reps=' + reps + '&weight=' + weight + '&date=' + date + '&unit=' + unit, true);
-                req.addEventListener('load', function () {
-                    if (req.status >= 200 && req.status < 400) {
-                        console.log("Success!")
-                        closeEditForm();
-                        var response = JSON.parse(req.responseText);
-                        var response2 = JSON.parse(response.results);
-                        DOMtable(response2);
-
-
-                    } else {
-                        console.log("Error in network request: " + req.statusText);
-                    }
-                });
-                req.send(null);
-                event.preventDefault();
-
-
-            }
-
-        });
-
-
-        document.getElementById('submit').addEventListener('click', function (event) {
-
-            var name = document.getElementById('name').value;
-
-            if (name === "") {
-                alert("Please enter the Name in the form");
-                event.preventDefault();
-                return
-            } else {
-                var req = new XMLHttpRequest();
-                var reps = document.getElementById('reps').value;
-                var weight = document.getElementById('weight').value;
-                var date = document.getElementById('date').value;
-                var unit = document.querySelector('input[name = "unit"]:checked').value;
-
-                console.log(name, reps, weight, date, unit)
-                if (reps == "") {
-                    reps = -1
-                }
-                if (weight == "") {
-                    weight = -1
-                }
-                if (date == "") {
-                    date = "9999-12-31"
-                }
-
-
-                //console.log(name, reps, weight, date, unit)
-                console.log("Insert!")
-
-                req.open('GET', '/insert?name=' + name + '&reps=' + reps + '&weight=' + weight + '&date=' + date + '&unit=' + unit, true);
-                req.addEventListener('load', function () {
-                    if (req.status >= 200 && req.status < 400) {
-                        console.log("Success!")
-                        document.getElementById("insert-form").reset();
-                        var response = JSON.parse(req.responseText);
-                        var response2 = JSON.parse(response.results);
-                        DOMtable(response2);
-
-
-                    } else {
-                        console.log("Error in network request: " + req.statusText);
-                    }
-                });
-                req.send(null);
-                event.preventDefault();
-
-            }
-        });
-
-
+        PullData()
 
 
         function PullData() {
 
             var req = new XMLHttpRequest();
-            req.open('GET', '/pull', true);
+            req.open('GET', '/', true);
             req.addEventListener('load', function () {
                 if (req.status >= 200 && req.status < 400) {
 
                     var response = JSON.parse(req.responseText);
                     var response2 = JSON.parse(response.results);
+                    console.log(response2)
                     DOMtable(response2);
 
                 } else {
@@ -214,6 +116,10 @@
             req.send(null);
 
         };
+
+
+
+
 
 
         function DOMtable(rows) {
@@ -271,15 +177,14 @@
                 TBodyRow.appendChild(TBodyContent)
 
 
-
-                var TBodyContent = document.createElement("td")
-                var delete_btn = document.createElement('button');
                 let record_id = rows[i].id
-                delete_btn.innerHTML = 'Delete';
-                delete_btn.onclick = function () {
+                var TBodyContent = document.createElement("td")
+                var delete_btn_get = document.createElement('button');
+                delete_btn_get.innerHTML = 'Delete - GET';
+                delete_btn_get.onclick = function () {
 
                     var req = new XMLHttpRequest();
-                    req.open('GET', '/delete?id=' + record_id, true);
+                    req.open('GET', '/delete_get?id=' + record_id, true);
                     req.addEventListener('load', function () {
                         if (req.status >= 200 && req.status < 400) {
                             var response = JSON.parse(req.responseText);
@@ -294,69 +199,80 @@
                     req.send(null);
                     event.preventDefault();
                 };
-                TBodyContent.appendChild(delete_btn)
+                TBodyContent.appendChild(delete_btn_get)
                 TBodyRow.appendChild(TBodyContent)
+
+
+
+
+                var TBodyContent = document.createElement("td")
+                var delete_btn_post = document.createElement('button');
+                delete_btn_post.innerHTML = 'Delete - POST';
+                delete_btn_post.onclick = function () {
+
+                    var req = new XMLHttpRequest();
+                    var delete_data = {}
+                    delete_data.id = record_id
+                    req.open('POST', '/delete_post', true);
+                    req.setRequestHeader('Content-Type', 'application/json');
+                    req.addEventListener('load', function () {
+                        if (req.status >= 200 && req.status < 400) {
+                            var response = JSON.parse(req.responseText);
+                            var response2 = JSON.parse(response.results);
+                            DOMtable(response2);
+                        } else {
+                            console.log("Error in network request: " + req.statusText);
+                        }
+                    });
+                    req.send(JSON.stringify(delete_data));
+                    event.preventDefault();
+
+                };
+
+
+                TBodyContent.appendChild(delete_btn_post)
+                TBodyRow.appendChild(TBodyContent)
+
 
 
                 var TBodyContent = document.createElement("td")
                 var edit_btn = document.createElement('button');
                 let edit_id = rows[i].id
-                let edit_name = rows[i].name
-                let edit_reps = rows[i].reps
-                let edit_weight = rows[i].weight
-                let edit_date = rows[i].date
-                let edit_unit = rows[i].unit
-
-
 
                 edit_btn.innerHTML = 'Edit';
                 edit_btn.onclick = function () {
-                    closeEditForm()
-
-                    document.getElementById("edit-form").style.display = "block";
-                    document.getElementById("edit-id").value = edit_id
-                    document.getElementById("edit-name").defaultValue = edit_name
 
 
-                    if (edit_reps != -1) {
-                        document.getElementById("edit-reps").defaultValue = edit_reps
-                    } else {
-                        document.getElementById("edit-reps").defaultValue = ""
-                    }
+                    var req = new XMLHttpRequest();
+                    req.open('GET', '/edit_pull_get?id=' + edit_id, true);
+                    req.addEventListener('load', function () {
+                        if (req.status >= 200 && req.status < 400) {
+                            var response = JSON.parse(req.responseText);
+                            var response2 = JSON.parse(response.results);
+                            console.log(response2)
+                            console.log(response2.name)
 
-                    if (edit_weight != -1) {
-                        document.getElementById("edit-weight").defaultValue = edit_weight
-                    } else {
-                        document.getElementById("edit-weight").defaultValue = ""
-                    }
-
-
-
-                    if (getFormattedDateYMR(edit_date) != "9999-12-31") {
-                        document.getElementById("edit-date").defaultValue = getFormattedDateYMR(edit_date)
-                    } else {
-                        document.getElementById("edit-date").defaultValue = ""
-                    }
+                            closeEditForm()
+                            OpenEditForm(response2.id, response2.name, response2.reps, response2.weight, response2.date, response2.unit)
 
 
-
-                    if (edit_unit == "kg") {
-                        document.getElementById("edit-kg").checked = true
-                    } else if (edit_unit == "lbs") {
-                        document.getElementById("edit-lbs").checked = true
-                    } else {
-                        document.getElementById("edit-na").checked = true
-                    }
+                            return;
+                        } else {
+                            console.log("Error in network request: " + req.statusText);
+                        }
+                    });
+                    req.send(null);
+                    event.preventDefault();
 
 
                 }
                 TBodyContent.appendChild(edit_btn)
                 TBodyRow.appendChild(TBodyContent)
-
                 TBodyTag.appendChild(TBodyRow)
 
             }
 
+            return
         }
 
 
@@ -366,6 +282,44 @@
             document.getElementById("edit-form").style.display = "none";
         }
 
+
+        function OpenEditForm(id, name, reps, weight, date, unit) {
+
+            document.getElementById("edit-form").style.display = "block";
+            document.getElementById("edit-id").value = id;
+            document.getElementById("edit-name").defaultValue = name;
+
+
+            if (reps != -1) {
+                document.getElementById("edit-reps").defaultValue = reps
+            } else {
+                document.getElementById("edit-reps").defaultValue = ""
+            }
+
+            if (weight != -1) {
+                document.getElementById("edit-weight").defaultValue = weight
+            } else {
+                document.getElementById("edit-weight").defaultValue = ""
+            }
+
+
+
+            if (getFormattedDateYMR(date) != "9999-12-31") {
+                document.getElementById("edit-date").defaultValue = getFormattedDateYMR(date)
+            } else {
+                document.getElementById("edit-date").defaultValue = ""
+            }
+
+
+
+            if (unit == "kg") {
+                document.getElementById("edit-kg").checked = true
+            } else if (unit == "lbs") {
+                document.getElementById("edit-lbs").checked = true
+            } else {
+                document.getElementById("edit-na").checked = true
+            }
+        }
 
 
 
