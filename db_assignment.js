@@ -51,7 +51,7 @@ app.get('/', function (req, res, next) {
 
 
 
-      query_result.push({ 'id': rows[i].id, 'name': rows[i].name, 'reps': reps, 'weight': weight, 'date': date, 'unit': unit })
+      query_result.push({ 'id': rows[i].id, 'name': rows[i].name, 'reps': reps, 'weight': weight, 'date': date, 'unit': rows[i].unit })
     }
     context.results = query_result;
     res.render("home", context)
