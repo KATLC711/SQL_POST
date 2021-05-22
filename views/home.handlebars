@@ -235,6 +235,28 @@
                     TBodyContent.textContent = rows[i].unit
                 }
                 TBodyRow.appendChild(TBodyContent)
+
+
+
+                var TBodyContent = document.createElement("td")
+
+                if (rows[i].unit == "na") {
+                    TBodyContent.textContent = ""
+                } else {
+                    TBodyContent.textContent = rows[i].unit
+                }
+                TBodyRow.appendChild(TBodyContent)
+
+
+                var TBodyContent = document.createElement("td")
+                var delete_btn = document.createElement('button');
+                let delete_id = rows[i].id
+                delete_btn.innerHTML = 'Delete';
+                delete_btn.onclick = Delete(delete_id);
+                TBodyContent.appendChild(delete_btn)
+                TBodyRow.appendChild(TBodyContent)
+
+
                 TBodyTag.appendChild(TBodyRow)
             }
 
