@@ -273,6 +273,22 @@
 
         function Edit_Record(id) {
             document.getElementById("edit-form").style.display = "block";
+            var edit_request = {}
+            edit_request.typ = "Edit_Data_request"
+            edit_request.id = id
+            req.open('POST', '/', true);
+            req.setRequestHeader('Content-Type', 'application/json');
+            req.addEventListener('load', function () {
+                if (req.status >= 200 && req.status < 400) {
+                    var response = JSON.parse(req.responseText);
+                    var response2 = JSON.parse(response.results);
+                    console.log
+                } else {
+                    console.log("Error in network request: " + req.statusText);
+                }
+            });
+            req.send(JSON.stringify(edit_request));
+            event.preventDefault();
         }
 
 
