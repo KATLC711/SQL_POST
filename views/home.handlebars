@@ -156,7 +156,7 @@
 
 
 
-        function Delete(id) {
+        function Delete_Record(id) {
 
             var req = new XMLHttpRequest();
             var delete_data = {}
@@ -251,7 +251,7 @@
                 var delete_btn = document.createElement('button');
                 let delete_id = rows[i].id
                 delete_btn.innerHTML = 'Delete';
-                delete_btn.onclick = Delete(delete_id);
+                delete_btn.onclick = Delete_Record(delete_id);
                 TBodyContent.appendChild(delete_btn)
                 TBodyRow.appendChild(TBodyContent)
 
