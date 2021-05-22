@@ -161,6 +161,7 @@ app.post('/delete_post', function (req, res, next) {
 
 app.get('/edit_get', function (req, res, next) {
   var context = {};
+  console.log("GET EDIT")
   mysql.pool.query("SELECT * FROM exercise WHERE id=?", [req.query.id], function (err, result) {
     if (err) {
       next(err);
@@ -185,6 +186,7 @@ app.get('/edit_get', function (req, res, next) {
 
 app.post('/edit_post', function (req, res, next) {
   var context = {};
+  console.log("POST EDIT")
   mysql.pool.query("SELECT * FROM exercise WHERE id=?", [req.query.id], function (err, result) {
     if (err) {
       next(err);
