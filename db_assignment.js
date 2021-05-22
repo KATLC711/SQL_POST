@@ -187,6 +187,7 @@ app.get('/edit_get', function (req, res, next) {
 app.post('/edit_post', function (req, res, next) {
   var context = {};
   console.log("POST EDIT")
+  console.log(req.body)
   mysql.pool.query("SELECT * FROM exercise WHERE id=?", [req.query.id], function (err, result) {
     if (err) {
       next(err);
