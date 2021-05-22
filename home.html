@@ -207,7 +207,7 @@
                 var date = document.getElementById('date').value;
                 var unit = document.querySelector('input[name = "unit"]:checked').value;
 
-                console.log(name, reps, weight, date, unit)
+                //console.log(name, reps, weight, date, unit)
                 if (reps == "") {
                     reps = -1
                 }
@@ -218,7 +218,7 @@
                     date = "9999-12-31"
                 }
 
-                var insert_data = []
+                var insert_data = {}
                 insert_data.name = name
                 insert_data.reps = reps
                 insert_data.weight = weight
