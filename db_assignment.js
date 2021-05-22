@@ -28,7 +28,7 @@ app.get('/', function (req, res, next) {
     for (i = 0; i < rows.length; i++) {
 
       if (rows[i].reps == -1) {
-        var reps == ""
+        var reps = ""
       } else {
         var reps = rows[i].reps
       }
