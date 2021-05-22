@@ -317,15 +317,14 @@
             var req = new XMLHttpRequest();
             var edit_request = {}
             edit_request.typ = "Edit_Data_Submit"
-            edit_request.id = document.getElementById("edit-id")
-            edit_request.name = document.getElementById("edit-name")
-            edit_request.name = document.getElementById("edit-name")
+            edit_request.id = document.getElementById("edit-id").value
+            edit_request.name = document.getElementById("edit-name").value
             edit_request.unit = document.querySelector('input[name = "edit-unit"]:checked').value;
 
             if (document.getElementById("edit-rep") == "") {
                 edit_request.reps = -1
             } else {
-                edit_request.reps = document.getElementById("edit-rep")
+                edit_request.reps = document.getElementById("edit-rep").value
             }
 
 
@@ -333,7 +332,7 @@
             if (document.getElementById("edit-weight") == "") {
                 edit_request.weight = -1
             } else {
-                edit_request.weight = document.getElementById("edit-weight")
+                edit_request.weight = document.getElementById("edit-weight").value
             }
 
 
@@ -342,7 +341,7 @@
             if (document.getElementById("edit-date") == "") {
                 edit_request.date = "9999-12-31"
             } else {
-                edit_request.date = document.getElementById("edit-date")
+                edit_request.date = document.getElementById("edit-date").value
             }
 
 
