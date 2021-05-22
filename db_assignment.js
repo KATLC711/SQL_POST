@@ -47,7 +47,7 @@ app.get('/pull_get', function (req, res, next) {
     for (i = 0; i < rows.length; i++) {
       query_result.push({ 'id': rows[i].id, 'name': rows[i].name, 'reps': rows[i].reps, 'weight': rows[i].weight, 'date': getFormattedDate(rows[i].date), 'unit': rows[i].unit })
     }
-    context.results = JSON.stringify(rows);
+    context.results = JSON.stringify(query_result);
     res.send(context);
   });
 });
@@ -65,7 +65,7 @@ app.post('/pull_post', function (req, res, next) {
     for (i = 0; i < rows.length; i++) {
       query_result.push({ 'id': rows[i].id, 'name': rows[i].name, 'reps': rows[i].reps, 'weight': rows[i].weight, 'date': getFormattedDate(rows[i].date), 'unit': rows[i].unit })
     }
-    context.results = JSON.stringify(rows);
+    context.results = JSON.stringify(query_result);
     res.send(context);
   });
 });
@@ -106,7 +106,7 @@ app.post('/insert_post', function (req, res, next) {
       for (i = 0; i < rows.length; i++) {
         query_result.push({ 'id': rows[i].id, 'name': rows[i].name, 'reps': rows[i].reps, 'weight': rows[i].weight, 'date': getFormattedDate(rows[i].date), 'unit': rows[i].unit })
       }
-      context.results = JSON.stringify(rows);
+      context.results = JSON.stringify(query_result);
       res.send(context);
     });
   });
@@ -150,7 +150,7 @@ app.post('/delete_post', function (req, res, next) {
       for (i = 0; i < rows.length; i++) {
         query_result.push({ 'id': rows[i].id, 'name': rows[i].name, 'reps': rows[i].reps, 'weight': rows[i].weight, 'date': getFormattedDate(rows[i].date), 'unit': rows[i].unit })
       }
-      context.results = JSON.stringify(rows);
+      context.results = JSON.stringify(query_result);
       res.send(context);
     });
   });
@@ -206,7 +206,7 @@ app.post('/edit_post', function (req, res, next) {
           for (i = 0; i < rows.length; i++) {
             query_result.push({ 'id': rows[i].id, 'name': rows[i].name, 'reps': rows[i].reps, 'weight': rows[i].weight, 'date': getFormattedDate(rows[i].date), 'unit': rows[i].unit })
           }
-          context.results = JSON.stringify(rows);
+          context.results = JSON.stringify(query_result);
           res.send(context);
         });
     }
