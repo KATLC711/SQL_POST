@@ -199,6 +199,7 @@
 
         function PullData() {
             var req = new XMLHttpRequest();
+            var input_data = []
             req.open('POST', '/pull', true);
             req.setRequestHeader('Content-Type', 'application/json');
             req.addEventListener('load', function () {
