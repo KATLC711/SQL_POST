@@ -118,6 +118,7 @@ app.post('/insert_post', function (req, res, next) {
 
 app.get('/delete', function (req, res, next) {
   var context = {};
+  console.log("GET DELETE")
   mysql.pool.query("DELETE FROM exercise WHERE id=?", [req.query.id], function (err, result) {
     if (err) {
       next(err);
