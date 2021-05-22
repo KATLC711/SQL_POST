@@ -273,6 +273,7 @@
 
         function Edit_Record(id) {
             document.getElementById("edit-form").style.display = "block";
+            var req = new XMLHttpRequest();
             var edit_request = {}
             edit_request.typ = "Edit_Data_request"
             edit_request.id = id
@@ -282,7 +283,7 @@
                 if (req.status >= 200 && req.status < 400) {
                     var response = JSON.parse(req.responseText);
                     var response2 = JSON.parse(response.results);
-                    console.log
+                    console.log(response2)
                 } else {
                     console.log("Error in network request: " + req.statusText);
                 }

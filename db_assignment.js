@@ -128,8 +128,28 @@ app.post('/', function (req, res, next) {
 
 
   if (req.body.typ == "Edit_Data_request") {
+    var context = {};
+    mysql.pool.query("SELECT * FROM exercise WHERE id=?", [req.body.id], function (err, rows, fields) {
+      if (err) {
+        next(err);
+        return;
+      }
+      query_result = []
+      for (i = 0; i < rows.length; i++) {
+        query_result.push({ 'id': rows[i].id, 'name': rows[i].name, 'reps': reps, 'weight': weight, 'date': date, 'unit': unit })
+      }
+      context.results = query_result[0];
+      res.render("home", context)
+    });
+
 
   }
+
+
+
+
+
+
 
 });
 
