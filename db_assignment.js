@@ -67,6 +67,26 @@ app.get('/', function (req, res, next) {
 app.post('/', function (req, res, next) {
 
 
+
+  function getFormattedDate(date_unformmated) {
+
+    var date = new Date(date_unformmated)
+
+    var year = date.getFullYear();
+
+    var month = (1 + date.getMonth()).toString();
+    month = month.length > 1 ? month : '0' + month;
+
+    var day = date.getDate().toString();
+    day = day.length > 1 ? day : '0' + day;
+
+    final = month + '-' + day + '-' + year;
+
+    return final.toString();
+  }
+
+
+
   if (req.body.typ == "Insert") {
     console.log("Insert")
     mysql.pool.query("INSERT INTO exercise (`name`,`reps`,`weight`,`date`,`unit`) VALUES (?,?,?,?,?)", [req.body.name, req.body.reps, req.body.weight, req.body.date, req.body.unit], function (err, result) {
@@ -159,24 +179,6 @@ app.listen(app.get('port'), function () {
 
 
 
-
-
-function getFormattedDate(date_unformmated) {
-
-  var date = new Date(date_unformmated)
-
-  var year = date.getFullYear();
-
-  var month = (1 + date.getMonth()).toString();
-  month = month.length > 1 ? month : '0' + month;
-
-  var day = date.getDate().toString();
-  day = day.length > 1 ? day : '0' + day;
-
-  final = month + '-' + day + '-' + year;
-
-  return final.toString();
-}
 
 
 
