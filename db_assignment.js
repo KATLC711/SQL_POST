@@ -176,6 +176,7 @@ app.post('/', function (req, res, next) {
   if (req.body.typ == "Edit_Data_Submit") {
 
     console.log("Edit Data Submit")
+    console.log(req.body)
     var context = {};
     mysql.pool.query("SELECT * FROM exercise WHERE id=?", [req.query.id], function (err, result) {
       if (err) {
