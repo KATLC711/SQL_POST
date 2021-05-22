@@ -285,7 +285,7 @@
                     var response2 = JSON.parse(response.results);
 
                     console.log(response2.name)
-
+                    document.getElementById("edit-form").reset();
                     document.getElementById("edit-name").defaultValue = response2.name
                     document.getElementById('edit-reps').defaultValue = response2.reps
                     document.getElementById('edit-weight').defaultValue = response2.weight
