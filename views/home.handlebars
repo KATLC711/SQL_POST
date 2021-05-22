@@ -88,7 +88,7 @@
             <input type="radio" style="display:none" id="edit-na" name="edit-unit" value="na"><br>
 
 
-            <button type="submit" id='edit-submit-get'>Submit</button>
+            <button type="submit" id='edit-submit'>Submit</button>
             <button type="button" onclick="closeEditForm()">Close</button>
         </form>
 
@@ -308,6 +308,81 @@
             req.send(JSON.stringify(edit_request));
             event.preventDefault();
         }
+
+
+
+        document.getElementById('edit-submit').addEventListener('click', function (event) {
+
+
+
+            console.log(name, reps, weight, date, unit)
+            if (reps == "") {
+                reps = -1
+            }
+            if (weight == "") {
+                weight = -1
+            }
+            if (date == "") {
+                date = "9999-12-31"
+            }
+
+
+            var req = new XMLHttpRequest();
+            var edit_request = {}
+            edit_request.typ = "Edit_Data_Submit"
+            edit_request.id = document.getElementById("edit-id")
+            edit_request.name = document.getElementById("edit-name")
+            edit_request.name = document.getElementById("edit-name")
+            edit_request.unit = document.querySelector('input[name = "edit-unit"]:checked').value;
+
+            if (document.getElementById("edit-rep").value == "") {
+                edit_request.reps = -1
+            } else {
+                edit_request.reps = document.getElementById("edit-rep").value
+            }
+
+
+
+            if (document.getElementById("edit-weight").value == "") {
+                edit_request.weight = -1
+            } else {
+                edit_request.weight = document.getElementById("edit-weight").value
+            }
+
+
+
+
+            if (document.getElementById("edit-date").value == "") {
+                edit_request.date = "9999-12-31"
+            } else {
+                edit_request.date = document.getElementById("edit-date").value
+            }
+
+
+            req.open('POST', '/', true);
+            req.setRequestHeader('Content-Type', 'application/json');
+            req.addEventListener('load', function () {
+                if (req.status >= 200 && req.status < 400) {
+                    var response = JSON.parse(req.responseText);
+                    var response2 = JSON.parse(response.results);
+                    DOMtable(response2);
+
+                } else {
+                    console.log("Error in network request: " + req.statusText);
+                }
+            });
+            req.send(JSON.stringify(edit_request));
+            event.preventDefault();
+
+
+
+
+
+
+
+        });
+
+
 
 
 

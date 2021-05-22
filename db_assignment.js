@@ -173,6 +173,49 @@ app.post('/', function (req, res, next) {
 
 
 
+  if (req.body.typ == "Edit_Data_Submit") {
+
+
+    var context = {};
+    mysql.pool.query("SELECT * FROM exercise WHERE id=?", [req.query.id], function (err, result) {
+      if (err) {
+        next(err);
+        return;
+      }
+      if (result.length == 1) {
+        var curVals = result[0];
+        mysql.pool.query("UPDATE exercise SET name=?,reps=?,weight=?,date=?,unit=? WHERE id=? ",
+          [req.body.name || curVals.name, req.body.reps || curVals.reps, req.body.weight || curVals.weight, req.body.date || curVals.date, req.body.unit || curVals.unit, req.body.id],
+          function (err, result) {
+            if (err) {
+              next(err);
+              return;
+            }
+
+
+            mysql.pool.query('SELECT * FROM exercise', function (err, rows, fields) {
+              if (err) {
+                next(err);
+                return;
+              }
+              query_result = []
+              for (i = 0; i < rows.length; i++) {
+                query_result.push({ 'id': rows[i].id, 'name': rows[i].name, 'reps': rows[i].reps, 'weight': rows[i].weight, 'date': getFormattedDate(rows[i].date), 'unit': rows[i].unit })
+              }
+              context.results = JSON.stringify(query_result);
+              res.send(context);
+
+            });
+
+
+          });
+      }
+    });
+  }
+
+
+
+
 
 
 
