@@ -83,6 +83,22 @@ app.get('/insert', function (req, res, next) {
 
 
 
+app.post('/insert', function (req, res, next) {
+  var context = {};
+  console.log("POST INSERT")
+  console.log(req.body)
+  mysql.pool.query("INSERT INTO exercise (`name`,`reps`,`weight`,`date`,`unit`) VALUES (?,?,?,?,?)", [req.query.name, req.query.reps, req.query.weight, req.query.date, req.query.unit], function (err, result) {
+    if (err) {
+      next(err);
+      return;
+    }
+    res.redirect("/pull")
+
+  });
+});
+
+
+
 
 
 app.use(function (req, res) {
