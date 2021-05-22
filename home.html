@@ -195,6 +195,8 @@
 
 
 
+
+
         function PullData() {
             var req = new XMLHttpRequest();
             req.open('POST', '/pull', true);
@@ -203,6 +205,7 @@
                 if (req.status >= 200 && req.status < 400) {
                     var response = JSON.parse(req.responseText);
                     var response2 = JSON.parse(response.results);
+                    console.log("Hello")
                     DOMtable(response2);
                 } else {
                     console.log("Error in network request: " + req.statusText);
