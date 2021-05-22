@@ -186,7 +186,7 @@ app.post('/', function (req, res, next) {
       if (result.length == 1) {
         var curVals = result[0];
         mysql.pool.query("UPDATE exercise SET name=?,reps=?,weight=?,date=?,unit=? WHERE id=? ",
-          [req.body.name || curVals.name, req.body.reps || curVals.reps, req.body.weight || curVals.weight, req.body.date || curVals.date, req.body.unit || curVals.unit, req.body.id],
+          [req.body.name, req.body.reps || curVals.reps, req.body.weight || curVals.weight, req.body.date || curVals.date, req.body.unit || curVals.unit, req.body.id],
           function (err, result) {
             if (err) {
               next(err);
