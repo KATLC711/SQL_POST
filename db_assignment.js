@@ -65,7 +65,7 @@ app.post('/', function (req, res, next) {
       query_result.push({ 'id': rows[i].id, 'name': rows[i].name, 'reps': rows[i].reps, 'weight': rows[i].weight, 'date': getFormattedDate(rows[i].date), 'unit': rows[i].unit })
     }
     context.results = query_result;
-    res.render("home", context)
+    res.send(context)
   });
 });
 
