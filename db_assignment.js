@@ -40,12 +40,15 @@ app.get('/', function (req, res, next) {
         var weight = rows[i].weight
       }
 
+      if (rows[i].unit == "na") {
+        var unit = ""
+      } else {
+        var unit = rows[i].unit
+      }
 
 
 
-
-
-      query_result.push({ 'id': rows[i].id, 'name': rows[i].name, 'reps': reps, 'weight': weight, 'date': "", 'unit': rows[i].unit })
+      query_result.push({ 'id': rows[i].id, 'name': rows[i].name, 'reps': reps, 'weight': weight, 'date': "", 'unit': unit })
     }
     context.results = query_result;
     res.render("home", context)
