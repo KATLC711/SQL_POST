@@ -29,7 +29,7 @@ app.get('/', function (req, res, next) {
     for (i = 0; i < rows.length; i++) {
       query_result.push({ 'id': rows[i].id, 'name': rows[i].name, 'reps': rows[i].reps, 'weight': rows[i].weight, 'date': getFormattedDate(rows[i].date), 'unit': rows[i].unit })
     }
-    context.results = JSON.stringify(rows);
+    context.results = JSON.stringify(query_result);
     res.sendFile(__dirname + '/home.html', context);
   });
 });
