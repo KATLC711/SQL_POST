@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="/css/home.css">
+</head>
+
+<body>
+
+
+    <div class="content-table">
+        <h1>Insert New Record</h1>
+        <form id="insert-form">
+            <label>Name</label><br>
+            <input type="text" name="name" id="name">
+            <br>
+            <label>Reps</label><br>
+            <input type="number" name="reps" id="reps"><br>
+            <label>Weight</label><br>
+            <input type="number" name="weight" id="weight"><br>
+            <label>Date</label><br>
+            <input type="date" name="date" id="date"><br>
+            <label>Unit</label><br>
+            <input type="radio" id="kg" name="unit" value="kg">kg
+            <input type="radio" id="lbs" name="unit" value="lbs">lbs
+            <input type="radio" style="display:none" id="na" name="unit" value="na" checked><br>
+            <button type="submit" id='submit'>SUBMIT</button>
+        </form>
+    </div>
+
+
+    <br>
+
+    <div class="content-table">
+        <h1>Here's your table</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Reps</th>
+                    <th>Weight</th>
+                    <th>Date</th>
+                    <th>Unit</th>
+                    <th>Delete</th>
+                    <th>Edit</th>
+                </tr>
+            </thead>
+            <tbody id="content-table">
+
+
+
+
+            </tbody>
+
+        </table>
+    </div>
+
+    <br>
+
+    <div id="edit-form" class="edit-form">
+        <h1>Edit Form</h1>
+        <form>
+            <input type="hidden" name="id" id="edit-id" required><br>
+            <label>Name</label><br>
+            <input type="text" name="name" id="edit-name" required><br>
+            <label>Reps</label><br>
+            <input type="number" name="reps" id="edit-reps"><br>
+            <label>Weight</label><br>
+            <input type="number" name="weight" id="edit-weight"><br>
+            <label>Date</label><br>
+            <input type="date" name="date" id="edit-date"><br>
+            <label>Unit</label><br>
+
+            <input type="radio" id="edit-kg" name="edit-unit" value="kg">kg
+            <input type="radio" id="edit-lbs" name="edit-unit" value="lbs">lbs
+            <input type="radio" style="display:none" id="edit-na" name="edit-unit" value="na"><br>
+
+
+            <button type="submit" id='edit-submit'>SUBMIT</button>
+            <button type="button" onclick="closeEditForm()">Close</button>
+        </form>
+
+
+    </div>
+
+
+
+    <script>
+
+
+
+
+
+        PullData();
+
+        document.getElementById('edit-submit').addEventListener('click', function (event) {
+            var name = document.getElementById('edit-name').value;
+
+            if (name != "") {
+                var req = new XMLHttpRequest();
+                var id = document.getElementById('edit-id').value;
+                var reps = document.getElementById('edit-reps').value;
+                var weight = document.getElementById('edit-weight').value;
+                var date = document.getElementById('edit-date').value;
+                var unit = document.querySelector('input[name = "edit-unit"]:checked').value;
+
+
+                console.log(name, reps, weight, date, unit)
+                if (reps == "") {
+                    reps = -1
+                }
+                if (weight == "") {
+                    weight = -1
+                }
+                if (date == "") {
+                    date = "9999-12-31"
+                }
+
+                req.open('GET', '/edit?id=' + id + '&name=' + name + '&reps=' + reps + '&weight=' + weight + '&date=' + date + '&unit=' + unit, true);
+                req.addEventListener('load', function () {
+                    if (req.status >= 200 && req.status < 400) {
+                        console.log("Success!")
+                        closeEditForm();
+                        var response = JSON.parse(req.responseText);
+                        var response2 = JSON.parse(response.results);
+                        DOMtable(response2);
+
+
+                    } else {
+                        console.log("Error in network request: " + req.statusText);
+                    }
+                });
+                req.send(null);
+                event.preventDefault();
+
+
+            }
+
+        });
+
+
+        document.getElementById('submit').addEventListener('click', function (event) {
+
+            var name = document.getElementById('name').value;
+
+            if (name === "") {
+                alert("Please enter the Name in the form");
+                event.preventDefault();
+                return
+            } else {
+                var req = new XMLHttpRequest();
+                var reps = document.getElementById('reps').value;
+                var weight = document.getElementById('weight').value;
+                var date = document.getElementById('date').value;
+                var unit = document.querySelector('input[name = "unit"]:checked').value;
+
+                console.log(name, reps, weight, date, unit)
+                if (reps == "") {
+                    reps = -1
+                }
+                if (weight == "") {
+                    weight = -1
+                }
+                if (date == "") {
+                    date = "9999-12-31"
+                }
+
+
+                //console.log(name, reps, weight, date, unit)
+                console.log("Insert!")
+
+                req.open('GET', '/insert?name=' + name + '&reps=' + reps + '&weight=' + weight + '&date=' + date + '&unit=' + unit, true);
+                req.addEventListener('load', function () {
+                    if (req.status >= 200 && req.status < 400) {
+                        console.log("Success!")
+                        document.getElementById("insert-form").reset();
+                        var response = JSON.parse(req.responseText);
+                        var response2 = JSON.parse(response.results);
+                        DOMtable(response2);
+
+
+                    } else {
+                        console.log("Error in network request: " + req.statusText);
+                    }
+                });
+                req.send(null);
+                event.preventDefault();
+
+            }
+        });
+
+
+
+
+        function PullData() {
+
+            var req = new XMLHttpRequest();
+            req.open('GET', '/pull', true);
+            req.addEventListener('load', function () {
+                if (req.status >= 200 && req.status < 400) {
+
+                    var response = JSON.parse(req.responseText);
+                    var response2 = JSON.parse(response.results);
+                    DOMtable(response2);
+
+                } else {
+                    console.log("Error in network request: " + req.statusText);
+                }
+            });
+            req.send(null);
+
+        };
+
+
+        function DOMtable(rows) {
+
+
+            var TBodyTag = document.getElementById('content-table')
+            TBodyTag.innerHTML = '';
+
+            for (i = 0; i < rows.length; i++) {
+                var TBodyRow = document.createElement("tr")
+
+                var TBodyContent = document.createElement("td")
+                TBodyContent.textContent = rows[i].name
+                TBodyRow.appendChild(TBodyContent)
+
+                var TBodyContent = document.createElement("td")
+
+                if (rows[i].reps == -1) {
+                    TBodyContent.textContent = ""
+                } else {
+                    TBodyContent.textContent = rows[i].reps
+                }
+                TBodyRow.appendChild(TBodyContent)
+
+
+
+                var TBodyContent = document.createElement("td")
+                if (rows[i].weight == -1) {
+                    TBodyContent.textContent = ""
+                } else {
+                    TBodyContent.textContent = rows[i].weight
+                }
+                TBodyRow.appendChild(TBodyContent)
+
+
+
+
+                var TBodyContent = document.createElement("td")
+                if (getFormattedDateYMR(rows[i].date) == "9999-12-31") {
+                    TBodyContent.textContent = ""
+                } else {
+                    TBodyContent.textContent = getFormattedDate(rows[i].date)
+                }
+                TBodyRow.appendChild(TBodyContent)
+
+
+
+                var TBodyContent = document.createElement("td")
+
+                if (rows[i].unit == "na") {
+                    TBodyContent.textContent = ""
+                } else {
+                    TBodyContent.textContent = rows[i].unit
+                }
+                TBodyRow.appendChild(TBodyContent)
+
+
+
+                var TBodyContent = document.createElement("td")
+                var delete_btn = document.createElement('button');
+                let record_id = rows[i].id
+                delete_btn.innerHTML = 'Delete';
+                delete_btn.onclick = function () {
+
+                    var req = new XMLHttpRequest();
+                    req.open('GET', '/delete?id=' + record_id, true);
+                    req.addEventListener('load', function () {
+                        if (req.status >= 200 && req.status < 400) {
+                            var response = JSON.parse(req.responseText);
+                            var response2 = JSON.parse(response.results);
+                            DOMtable(response2);
+
+                            return;
+                        } else {
+                            console.log("Error in network request: " + req.statusText);
+                        }
+                    });
+                    req.send(null);
+                    event.preventDefault();
+                };
+                TBodyContent.appendChild(delete_btn)
+                TBodyRow.appendChild(TBodyContent)
+
+
+                var TBodyContent = document.createElement("td")
+                var edit_btn = document.createElement('button');
+                let edit_id = rows[i].id
+                let edit_name = rows[i].name
+                let edit_reps = rows[i].reps
+                let edit_weight = rows[i].weight
+                let edit_date = rows[i].date
+                let edit_unit = rows[i].unit
+
+
+
+                edit_btn.innerHTML = 'Edit';
+                edit_btn.onclick = function () {
+                    closeEditForm()
+
+                    document.getElementById("edit-form").style.display = "block";
+                    document.getElementById("edit-id").value = edit_id
+                    document.getElementById("edit-name").defaultValue = edit_name
+
+
+                    if (edit_reps != -1) {
+                        document.getElementById("edit-reps").defaultValue = edit_reps
+                    } else {
+                        document.getElementById("edit-reps").defaultValue = ""
+                    }
+
+                    if (edit_weight != -1) {
+                        document.getElementById("edit-weight").defaultValue = edit_weight
+                    } else {
+                        document.getElementById("edit-weight").defaultValue = ""
+                    }
+
+
+
+                    if (getFormattedDateYMR(edit_date) != "9999-12-31") {
+                        document.getElementById("edit-date").defaultValue = getFormattedDateYMR(edit_date)
+                    } else {
+                        document.getElementById("edit-date").defaultValue = ""
+                    }
+
+
+
+                    if (edit_unit == "kg") {
+                        document.getElementById("edit-kg").checked = true
+                    } else if (edit_unit == "lbs") {
+                        document.getElementById("edit-lbs").checked = true
+                    } else {
+                        document.getElementById("edit-na").checked = true
+                    }
+
+
+                }
+                TBodyContent.appendChild(edit_btn)
+                TBodyRow.appendChild(TBodyContent)
+
+                TBodyTag.appendChild(TBodyRow)
+
+            }
+
+        }
+
+
+
+
+        function closeEditForm() {
+            document.getElementById("edit-form").style.display = "none";
+        }
+
+
+
+
+        function getFormattedDateYMR(date_unformmated) {
+
+            var date = new Date(date_unformmated)
+
+            var year = date.getFullYear();
+
+            var month = (1 + date.getMonth()).toString();
+            month = month.length > 1 ? month : '0' + month;
+
+            var day = date.getDate().toString();
+            day = day.length > 1 ? day : '0' + day;
+
+            final = year + '-' + month + '-' + day;
+
+            return final.toString();
+        }
+
+
+        function getFormattedDate(date_unformmated) {
+
+            var date = new Date(date_unformmated)
+
+            var year = date.getFullYear();
+
+            var month = (1 + date.getMonth()).toString();
+            month = month.length > 1 ? month : '0' + month;
+
+            var day = date.getDate().toString();
+            day = day.length > 1 ? day : '0' + day;
+
+            final = month + '-' + day + '-' + year;
+
+            return final.toString();
+        }
+
+
+
+    </script>
+
+
+</body>
+
+</html>
