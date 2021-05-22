@@ -335,15 +335,15 @@
                 edit_request.weight = document.getElementById("edit-weight").value
             }
 
-
-
-
-            if (document.getElementById("edit-date") == "") {
-                edit_request.date = "9999-12-31"
-            } else {
-                edit_request.date = document.getElementById("edit-date").value
-            }
-
+            /*
+            
+            
+                        if (document.getElementById("edit-date") == "") {
+                            edit_request.date = "9999-12-31"
+                        } else {
+                            edit_request.date = document.getElementById("edit-date").value
+                        }
+            */
             console.log(edit_request)
             req.open('POST', '/', true);
             req.setRequestHeader('Content-Type', 'application/json');
