@@ -328,23 +328,23 @@
                 edit_request.reps = document.getElementById("edit-rep")
             }
 
-            /*
-            
-                        if (document.getElementById("edit-weight").value == "") {
-                            edit_request.weight = -1
-                        } else {
-                            edit_request.weight = document.getElementById("edit-weight").value
-                        }
-            
-            
-            
-            
-                        if (document.getElementById("edit-date").value == "") {
-                            edit_request.date = "9999-12-31"
-                        } else {
-                            edit_request.date = document.getElementById("edit-date").value
-                        }
-            */
+
+
+            if (document.getElementById("edit-weight") == "") {
+                edit_request.weight = -1
+            } else {
+                edit_request.weight = document.getElementById("edit-weight")
+            }
+
+
+
+
+            if (document.getElementById("edit-date") == "") {
+                edit_request.date = "9999-12-31"
+            } else {
+                edit_request.date = document.getElementById("edit-date")
+            }
+
 
             req.open('POST', '/', true);
             req.setRequestHeader('Content-Type', 'application/json');
@@ -352,6 +352,7 @@
                 if (req.status >= 200 && req.status < 400) {
                     var response = JSON.parse(req.responseText);
                     var response2 = JSON.parse(response.results);
+                    console.log(response2)
                     DOMtable(response2);
 
                 } else {
