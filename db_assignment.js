@@ -164,8 +164,8 @@ app.post('/', function (req, res, next) {
 
         query_result.push({ 'id': rows[i].id, 'name': rows[i].name, 'reps': reps, 'weight': weight, 'date': date, 'unit': unit })
       }
-      context.results = query_result[0];
-      res.render("home", context)
+      context.results = JSON.stringify(query_result[0]);
+      res.send(context);
     });
 
 
