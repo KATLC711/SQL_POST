@@ -127,8 +127,6 @@
                         closeEditForm();
                         var response = JSON.parse(req.responseText);
                         var response2 = JSON.parse(response.results);
-                        var TBodyTag = document.getElementById('content-table')
-                        TBodyTag.innerHTML = '';
                         DOMtable(response2);
                     } else {
                         console.log("Error in network request: " + req.statusText);
@@ -406,12 +404,12 @@
 
                 var TBodyContent = document.createElement("td")
                 var edit_btn = document.createElement('button');
-                let edit_id = rows[i].id
-                let edit_name = rows[i].name
-                let edit_reps = rows[i].reps
-                let edit_weight = rows[i].weight
-                let edit_date = rows[i].date
-                let edit_unit = rows[i].unit
+                var edit_id = rows[i].id
+                var edit_name = rows[i].name
+                var edit_reps = rows[i].reps
+                var edit_weight = rows[i].weight
+                var edit_date = rows[i].date
+                var edit_unit = rows[i].unit
 
                 edit_btn.innerHTML = 'Edit';
                 edit_btn.onclick = function () {
