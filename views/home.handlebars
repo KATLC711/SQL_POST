@@ -59,7 +59,7 @@
                     <td>{{this.date}}</td>
                     <td>{{this.unit}}</td>
                     <td><button onclick="Delete_Record({{this.id}});">Delete</button></td>
-                    <td>{{this.name}}</td>
+                    <td><button onclick="Edit_Record({{this.id}});">Edit</button></td>
                 </tr>
                 {{/each}}
             </tbody>
@@ -88,7 +88,7 @@
             <input type="radio" style="display:none" id="edit-na" name="edit-unit" value="na"><br>
 
 
-            <button type="submit" id='edit-submit-get'>Submit with GET</button>
+            <button type="submit" id='edit-submit-get'>Submit</button>
             <button type="button" onclick="closeEditForm()">Close</button>
         </form>
 
@@ -225,6 +225,17 @@
                 TBodyRow.appendChild(TBodyContent)
 
 
+                var TBodyContent = document.createElement("td")
+                var edit_btn = document.createElement('button');
+                let edit_id = rows[i].id
+                delete_btn.innerHTML = 'Edit';
+                delete_btn.onclick = function () {
+                    Delete_Record(edit_id);
+                };
+                TBodyContent.appendChild(edit_btn)
+                TBodyRow.appendChild(TBodyContent)
+
+
 
 
 
@@ -258,6 +269,12 @@
             event.preventDefault();
 
         }
+
+
+        function Edit_Record(id) {
+            document.getElementById("edit-form").style.display = "block";
+        }
+
 
 
 
