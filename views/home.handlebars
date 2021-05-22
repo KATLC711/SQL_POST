@@ -237,7 +237,7 @@
                     var delete_data = {}
                     delete_data.typ = "Delete"
                     delete_data.id = delete_id
-                    req.open('POST', '/delete_post', true);
+                    req.open('POST', '/', true);
                     req.setRequestHeader('Content-Type', 'application/json');
                     req.addEventListener('load', function () {
                         if (req.status >= 200 && req.status < 400) {
