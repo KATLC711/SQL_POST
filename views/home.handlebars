@@ -228,9 +228,9 @@
                 var TBodyContent = document.createElement("td")
                 var edit_btn = document.createElement('button');
                 let edit_id = rows[i].id
-                delete_btn.innerHTML = 'Edit';
-                delete_btn.onclick = function () {
-                    Delete_Record(edit_id);
+                edit_btn.innerHTML = 'Edit';
+                edit_btn.onclick = function () {
+                    Edit_Record(edit_id);
                 };
                 TBodyContent.appendChild(edit_btn)
                 TBodyRow.appendChild(TBodyContent)
