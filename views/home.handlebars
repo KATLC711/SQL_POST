@@ -185,7 +185,6 @@
 
         function DOMtable(rows) {
 
-
             var TBodyTag = document.getElementById('content-table')
             TBodyTag.innerHTML = '';
             console.log(rows.length)
@@ -239,16 +238,8 @@
                 }
                 TBodyRow.appendChild(TBodyContent)
 
-
-
-                var TBodyContent = document.createElement("td")
-                var delete_btn = document.createElement('button');
-                let record_id = rows[i].id
-                delete_btn.innerHTML = 'Delete';
-                //                delete_btn.onclick = Delete(record_id);
-                TBodyContent.appendChild(delete_btn)
                 TBodyRow.appendChild(TBodyContent)
-
+                console.log(TBodyRow)
 
 
             }
