@@ -314,26 +314,13 @@
         document.getElementById('edit-submit').addEventListener('click', function (event) {
 
 
-
-            console.log(name, reps, weight, date, unit)
-            if (reps == "") {
-                reps = -1
-            }
-            if (weight == "") {
-                weight = -1
-            }
-            if (date == "") {
-                date = "9999-12-31"
-            }
-
-
             var req = new XMLHttpRequest();
             var edit_request = {}
             edit_request.typ = "Edit_Data_Submit"
             edit_request.id = document.getElementById("edit-id")
             edit_request.name = document.getElementById("edit-name")
             edit_request.name = document.getElementById("edit-name")
-            //edit_request.unit = document.querySelector('input[name = "edit-unit"]:checked').value;
+            edit_request.unit = document.querySelector('input[name = "edit-unit"]:checked').value;
 
             if (document.getElementById("edit-rep").value == "") {
                 edit_request.reps = -1
