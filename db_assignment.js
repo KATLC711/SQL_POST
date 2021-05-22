@@ -43,15 +43,9 @@ app.get('/', function (req, res, next) {
 
 
 
-      if (getFormattedDate(rows[i].date) == '9999-12-31') {
-        var date = ""
-      } else {
-        var date = rows[i].getFormattedDate(rows[i].date)
-      }
 
 
-
-      query_result.push({ 'id': rows[i].id, 'name': rows[i].name, 'reps': reps, 'weight': weight, 'date': date, 'unit': rows[i].unit })
+      query_result.push({ 'id': rows[i].id, 'name': rows[i].name, 'reps': reps, 'weight': weight, 'date': "", 'unit': rows[i].unit })
     }
     context.results = query_result;
     res.render("home", context)
