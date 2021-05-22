@@ -228,7 +228,7 @@
                 var delete_btn = document.createElement('button');
                 let delete_id = rows[i].id
                 delete_btn.innerHTML = 'Delete';
-                delete_btn.onclick = function delete (){
+                delete_btn.onclick = function () {
                     var req = new XMLHttpRequest();
                     var delete_data = {}
                     delete_data.typ = "Delete"
