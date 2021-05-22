@@ -38,8 +38,8 @@
 
     <div class="content-table">
         <h1>Here's your table</h1>
-        <input type="radio" id="pull-get" name="pull-type" value="get" checked>Pull-GET
-        <input type="radio" id="pull-post" name="pull-type" value="lbs">Pull-POST
+        <button type="button" onclick="PullData_GET()">PULL-GET</button>
+        <button type="button" onclick="PullData_POST()">PULL-POST</button>
         <br>
         <table>
             <thead>
@@ -99,16 +99,7 @@
 
 
 
-        PullData(document.querySelector('input[name = "pull-type"]:checked').value);
-
-
-        function PullData(pull_type) {
-            if (pull_type == "get") {
-                PullData_GET();
-            } else {
-                PullData_POST()
-            }
-        }
+        PullData_GET()
 
 
         function PullData_GET() {
