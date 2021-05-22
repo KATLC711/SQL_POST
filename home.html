@@ -375,6 +375,7 @@
                             closeEditForm()
                             OpenEditForm(response2.id, response2.name, response2.reps, response2.weight, response2.date, response2.unit)
 
+
                             return;
                         } else {
                             console.log("Error in network request: " + req.statusText);
@@ -391,6 +392,7 @@
 
             }
 
+            return
         }
 
 
@@ -446,17 +448,17 @@
 
             document.getElementById("edit-form").style.display = "block";
             document.getElementById("edit-id").value = id;
-            document.getElementById("edit-name").defaultValue = "";
+            document.getElementById("edit-name").defaultValue = name;
 
 
             if (reps != -1) {
-                document.getElementById("edit-reps").defaultValue = ""
+                document.getElementById("edit-reps").defaultValue = reps
             } else {
                 document.getElementById("edit-reps").defaultValue = ""
             }
 
             if (weight != -1) {
-                document.getElementById("edit-weight").defaultValue = ""
+                document.getElementById("edit-weight").defaultValue = weight
             } else {
                 document.getElementById("edit-weight").defaultValue = ""
             }
@@ -464,7 +466,7 @@
 
 
             if (getFormattedDateYMR(date) != "9999-12-31") {
-                document.getElementById("edit-date").defaultValue = ""
+                document.getElementById("edit-date").defaultValue = getFormattedDateYMR(date)
             } else {
                 document.getElementById("edit-date").defaultValue = ""
             }
