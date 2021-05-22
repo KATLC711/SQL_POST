@@ -228,100 +228,80 @@
                 var delete_btn = document.createElement('button');
                 let delete_id = rows[i].id
                 delete_btn.innerHTML = 'Delete';
-                delete_btn.onclick = function () {
-                    var req = new XMLHttpRequest();
-                    var delete_data = {}
-                    delete_data.typ = "Delete"
-                    delete_data.id = delete_id
-                    req.open('POST', '/', true);
-                    req.setRequestHeader('Content-Type', 'application/json');
-                    req.addEventListener('load', function () {
-                        if (req.status >= 200 && req.status < 400) {
-                            console.log("Delete Success")
-                            var response = JSON.parse(req.responseText);
-                            var response2 = JSON.parse(response.results);
-                            DOMtable(response2);
-
-                        } else {
-                            console.log("Error in network request: " + req.statusText);
-                        }
-                    });
-                    req.send(JSON.stringify(delete_data));
-                    event.preventDefault();
-                }
-                TBodyContent.appendChild(delete_btn)
-                TBodyRow.appendChild(TBodyContent)
+                delete_btn.onclick = Delete_Entry(delete_id);
+                req.send(JSON.stringify(delete_data));
+                event.preventDefault();
+            }
+            TBodyContent.appendChild(delete_btn)
+            TBodyRow.appendChild(TBodyContent)
 
 
-                TBodyTag.appendChild(TBodyRow)
+            TBodyTag.appendChild(TBodyRow)
+        }
+
+        }
+
+        function Delete_Entry(id) {
+
+            function Delete_Record(id) {
+
+                var req = new XMLHttpRequest();
+                var delete_data = {}
+                delete_data.typ = "Delete"
+                delete_data.id = delete_id
+                req.open('POST', '/', true);
+                req.setRequestHeader('Content-Type', 'application/json');
+                req.addEventListener('load', function () {
+                    if (req.status >= 200 && req.status < 400) {
+                        console.log("Delete Success")
+                        var response = JSON.parse(req.responseText);
+                        var response2 = JSON.parse(response.results);
+                        DOMtable(response2);
+
+                    } else {
+                        console.log("Error in network request: " + req.statusText);
+                    }
+                };
+
+            };
+
+
+            function getFormattedDate(date_unformmated) {
+
+                var date = new Date(date_unformmated)
+
+                var year = date.getFullYear();
+
+                var month = (1 + date.getMonth()).toString();
+                month = month.length > 1 ? month : '0' + month;
+
+                var day = date.getDate().toString();
+                day = day.length > 1 ? day : '0' + day;
+
+                final = month + '-' + day + '-' + year;
+
+                return final.toString();
             }
 
-        }
-
-
-        function Delete_Record(id) {
-
-            var req = new XMLHttpRequest();
-            var delete_data = {}
-            delete_data.typ = "Delete"
-            delete_data.id = id
-            req.open('POST', '/', true);
-            req.setRequestHeader('Content-Type', 'application/json');
-            req.addEventListener('load', function () {
-                if (req.status >= 200 && req.status < 400) {
-                    console.log("Delete Success")
-                    var response = JSON.parse(req.responseText);
-                    var response2 = JSON.parse(response.results);
-                    DOMtable(response2);
-
-                } else {
-                    console.log("Error in network request: " + req.statusText);
-                }
-            });
-            req.send(JSON.stringify(delete_data));
-            event.preventDefault();
-
-        };
 
 
 
+            function getFormattedDateYMR(date_unformmated) {
 
-        function getFormattedDate(date_unformmated) {
+                var date = new Date(date_unformmated)
 
-            var date = new Date(date_unformmated)
+                var year = date.getFullYear();
 
-            var year = date.getFullYear();
+                var month = (1 + date.getMonth()).toString();
+                month = month.length > 1 ? month : '0' + month;
 
-            var month = (1 + date.getMonth()).toString();
-            month = month.length > 1 ? month : '0' + month;
+                var day = date.getDate().toString();
+                day = day.length > 1 ? day : '0' + day;
 
-            var day = date.getDate().toString();
-            day = day.length > 1 ? day : '0' + day;
+                final = year + '-' + month + '-' + day;
 
-            final = month + '-' + day + '-' + year;
-
-            return final.toString();
-        }
-
-
-
-
-        function getFormattedDateYMR(date_unformmated) {
-
-            var date = new Date(date_unformmated)
-
-            var year = date.getFullYear();
-
-            var month = (1 + date.getMonth()).toString();
-            month = month.length > 1 ? month : '0' + month;
-
-            var day = date.getDate().toString();
-            day = day.length > 1 ? day : '0' + day;
-
-            final = year + '-' + month + '-' + day;
-
-            return final.toString();
-        }
+                return final.toString();
+            }
     </script>
 
 
