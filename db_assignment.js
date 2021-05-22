@@ -41,6 +41,17 @@ app.get('/', function (req, res, next) {
 app.post('/', function (req, res, next) {
 
 
+  if (req.body.typ == "Insert") {
+    console.log("Insert")
+    mysql.pool.query("INSERT INTO exercise (`name`,`reps`,`weight`,`date`,`unit`) VALUES (?,?,?,?,?)", [req.query.name, req.query.reps, req.query.weight, req.query.date, req.query.unit], function (err, result) {
+      if (err) {
+        next(err);
+        return;
+      }
+    });
+  }
+
+
   if (req.body.typ == "Delete") {
     console.log("Delete")
     mysql.pool.query("DELETE FROM exercise WHERE id=?", [req.body.id], function (err, result) {
@@ -64,8 +75,8 @@ app.post('/', function (req, res, next) {
     for (i = 0; i < rows.length; i++) {
       query_result.push({ 'id': rows[i].id, 'name': rows[i].name, 'reps': rows[i].reps, 'weight': rows[i].weight, 'date': getFormattedDate(rows[i].date), 'unit': rows[i].unit })
     }
-    context.results = query_result;
-    res.send(context)
+    context.results = JSON.stringify(rows);
+    res.send(context);
   });
 });
 
