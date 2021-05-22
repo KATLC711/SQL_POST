@@ -55,10 +55,6 @@
                 </tr>
             </thead>
             <tbody id="content-table">
-
-
-
-
             </tbody>
 
         </table>
@@ -416,9 +412,46 @@
                         if (req.status >= 200 && req.status < 400) {
                             var response = JSON.parse(req.responseText);
                             var response2 = JSON.parse(response.results);
-
                             console.log(response2)
                             //DOMtable(response2);
+
+                            closeEditForm()
+
+                            document.getElementById("edit-form").style.display = "block";
+                            document.getElementById("edit-id").value = response2.id;
+                            document.getElementById("edit-name").defaultValue = response2.name;
+
+
+                            if (response2.reps != -1) {
+                                document.getElementById("edit-reps").defaultValue = response2.reps
+                            } else {
+                                document.getElementById("edit-reps").defaultValue = ""
+                            }
+
+                            if (response2.weight != -1) {
+                                document.getElementById("edit-weight").defaultValue = response2.weight
+                            } else {
+                                document.getElementById("edit-weight").defaultValue = ""
+                            }
+
+
+
+                            if (getFormattedDateYMR(response2.date) != "9999-12-31") {
+                                document.getElementById("edit-date").defaultValue = getFormattedDateYMR(response2.date)
+                            } else {
+                                document.getElementById("edit-date").defaultValue = ""
+                            }
+
+
+
+                            if (response2.unit == "kg") {
+                                document.getElementById("edit-kg").checked = true
+                            } else if (response2.unit == "lbs") {
+                                document.getElementById("edit-lbs").checked = true
+                            } else {
+                                document.getElementById("edit-na").checked = true
+                            }
+
 
                             return;
                         } else {
