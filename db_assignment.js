@@ -114,6 +114,21 @@ app.post('/insert_post', function (req, res, next) {
 
 
 
+
+
+app.get('/delete', function (req, res, next) {
+  var context = {};
+  mysql.pool.query("DELETE FROM exercise WHERE id=?", [req.query.id], function (err, result) {
+    if (err) {
+      next(err);
+      return;
+    }
+    console.log(result)
+    res.redirect("/pull");
+  });
+});
+
+
 app.use(function (req, res) {
   res.status(404);
   res.render('404');
