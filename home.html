@@ -224,7 +224,7 @@
                 insert_data.weight = weight
                 insert_data.date = date
                 insert_data.unit = unit
-
+                console.log(insert_data)
                 req.open('POST', '/insert', true);
                 req.setRequestHeader('Content-Type', 'application/json');
                 req.addEventListener('load', function () {
