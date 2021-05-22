@@ -128,18 +128,13 @@
                         var response = JSON.parse(req.responseText);
                         var response2 = JSON.parse(response.results);
                         DOMtable(response2);
-
-
                     } else {
                         console.log("Error in network request: " + req.statusText);
                     }
                 });
                 req.send(null);
                 event.preventDefault();
-
-
             }
-
         });
 
 
@@ -409,16 +404,18 @@
 
                 var TBodyContent = document.createElement("td")
                 var edit_btn = document.createElement('button');
-                let edit_id = rows[i].id
-                let edit_name = rows[i].name
-                let edit_reps = rows[i].reps
-                let edit_weight = rows[i].weight
-                let edit_date = rows[i].date
-                let edit_unit = rows[i].unit
+
 
                 edit_btn.innerHTML = 'Edit';
                 edit_btn.onclick = function () {
                     closeEditForm()
+
+                    let edit_id = rows[i].id
+                    let edit_name = rows[i].name
+                    let edit_reps = rows[i].reps
+                    let edit_weight = rows[i].weight
+                    let edit_date = rows[i].date
+                    let edit_unit = rows[i].unit
 
                     document.getElementById("edit-form").style.display = "block";
                     document.getElementById("edit-id").value = edit_id
