@@ -246,97 +246,6 @@
 
 
 
-        document.getElementById('edit-submit-get').addEventListener('click', function (event) {
-            var name = document.getElementById('edit-name').value;
-
-            if (name != "") {
-                var req = new XMLHttpRequest();
-                var id = document.getElementById('edit-id').value;
-                var reps = document.getElementById('edit-reps').value;
-                var weight = document.getElementById('edit-weight').value;
-                var date = document.getElementById('edit-date').value;
-                var unit = document.querySelector('input[name = "edit-unit"]:checked').value;
-
-
-                console.log(name, reps, weight, date, unit)
-                if (reps == "") {
-                    reps = -1
-                }
-                if (weight == "") {
-                    weight = -1
-                }
-                if (date == "") {
-                    date = "9999-12-31"
-                }
-
-                req.open('GET', '/edit_get?id=' + id + '&name=' + name + '&reps=' + reps + '&weight=' + weight + '&date=' + date + '&unit=' + unit, true);
-                req.addEventListener('load', function () {
-                    if (req.status >= 200 && req.status < 400) {
-                        console.log("Success!")
-                        closeEditForm();
-                        var response = JSON.parse(req.responseText);
-                        var response2 = JSON.parse(response.results);
-                        DOMtable(response2);
-
-                    } else {
-                        console.log("Error in network request: " + req.statusText);
-                    }
-                });
-                req.send(null);
-                event.preventDefault();
-            }
-        });
-
-
-        document.getElementById('edit-submit-post').addEventListener('click', function (event) {
-            var name = document.getElementById('edit-name').value;
-
-            if (name != "") {
-                var req = new XMLHttpRequest();
-                var id = document.getElementById('edit-id').value;
-                var reps = document.getElementById('edit-reps').value;
-                var weight = document.getElementById('edit-weight').value;
-                var date = document.getElementById('edit-date').value;
-                var unit = document.querySelector('input[name = "edit-unit"]:checked').value;
-
-
-                console.log(name, reps, weight, date, unit)
-                if (reps == "") {
-                    reps = -1
-                }
-                if (weight == "") {
-                    weight = -1
-                }
-                if (date == "") {
-                    date = "9999-12-31"
-                }
-                var edit_data = {}
-                edit_data.id = id
-                edit_data.name = name
-                edit_data.reps = reps
-                edit_data.weight = weight
-                edit_data.date = date
-                edit_data.unit = unit
-                req.open('POST', '/edit_post', true);
-                req.setRequestHeader('Content-Type', 'application/json');
-                req.addEventListener('load', function () {
-                    if (req.status >= 200 && req.status < 400) {
-                        console.log("Success!")
-                        closeEditForm();
-                        var response = JSON.parse(req.responseText);
-                        var response2 = JSON.parse(response.results);
-                        DOMtable(response2);
-                    } else {
-                        console.log("Error in network request: " + req.statusText);
-                    }
-                });
-                req.send(JSON.stringify(edit_data));
-                event.preventDefault();
-            }
-        });
-
-
-
 
 
         function DOMtable(rows) {
@@ -460,8 +369,6 @@
                 let edit_weight = rows[i].weight
                 let edit_date = rows[i].date
                 let edit_unit = rows[i].unit
-
-
 
                 edit_btn.innerHTML = 'Edit';
                 edit_btn.onclick = function () {
