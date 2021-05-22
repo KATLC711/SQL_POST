@@ -237,8 +237,7 @@
                         console.log("Error in network request: " + req.statusText);
                     }
                 });
-                console.log(JSON.stringify(JSON.stringify(insert_data)))
-                req.send(JSON.stringify(JSON.stringify(insert_data)));
+                req.send(JSON.stringify(insert_data));
                 event.preventDefault();
 
             }
