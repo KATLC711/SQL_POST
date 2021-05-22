@@ -312,7 +312,7 @@
                 delete_btn.onclick = function () {
 
                     var req = new XMLHttpRequest();
-                    req.open('GET', '/delete?id=' + record_id, true);
+                    req.open('GET', '/delete_get?id=' + record_id, true);
                     req.addEventListener('load', function () {
                         if (req.status >= 200 && req.status < 400) {
                             var response = JSON.parse(req.responseText);
@@ -338,22 +338,31 @@
                 delete_btn.innerHTML = 'Delete - POST';
                 delete_btn.onclick = function () {
 
-                    var req = new XMLHttpRequest();
-                    req.open('GET', '/delete?id=' + record_id, true);
+                    var delete_data = {}
+                    delete_data.id = record_id
+                    req.open('POST', '/delete_post', true);
+                    req.setRequestHeader('Content-Type', 'application/json');
                     req.addEventListener('load', function () {
                         if (req.status >= 200 && req.status < 400) {
                             var response = JSON.parse(req.responseText);
                             var response2 = JSON.parse(response.results);
                             DOMtable(response2);
-
-                            return;
                         } else {
                             console.log("Error in network request: " + req.statusText);
                         }
                     });
-                    req.send(null);
+                    req.send(JSON.stringify(delete_data));
                     event.preventDefault();
+
                 };
+
+
+
+
+
+
+
+
                 TBodyContent.appendChild(delete_btn)
                 TBodyRow.appendChild(TBodyContent)
 
