@@ -247,45 +247,44 @@
                     console.log("Error in network request: " + req.statusText);
                 }
             };
-        }
 
 
-        function getFormattedDate(date_unformmated) {
+            function getFormattedDate(date_unformmated) {
 
-            var date = new Date(date_unformmated)
+                var date = new Date(date_unformmated)
 
-            var year = date.getFullYear();
+                var year = date.getFullYear();
 
-            var month = (1 + date.getMonth()).toString();
-            month = month.length > 1 ? month : '0' + month;
+                var month = (1 + date.getMonth()).toString();
+                month = month.length > 1 ? month : '0' + month;
 
-            var day = date.getDate().toString();
-            day = day.length > 1 ? day : '0' + day;
+                var day = date.getDate().toString();
+                day = day.length > 1 ? day : '0' + day;
 
-            final = month + '-' + day + '-' + year;
+                final = month + '-' + day + '-' + year;
 
-            return final.toString();
-        }
-
-
+                return final.toString();
+            }
 
 
-        function getFormattedDateYMR(date_unformmated) {
 
-            var date = new Date(date_unformmated)
 
-            var year = date.getFullYear();
+            function getFormattedDateYMR(date_unformmated) {
 
-            var month = (1 + date.getMonth()).toString();
-            month = month.length > 1 ? month : '0' + month;
+                var date = new Date(date_unformmated)
 
-            var day = date.getDate().toString();
-            day = day.length > 1 ? day : '0' + day;
+                var year = date.getFullYear();
 
-            final = year + '-' + month + '-' + day;
+                var month = (1 + date.getMonth()).toString();
+                month = month.length > 1 ? month : '0' + month;
 
-            return final.toString();
-        }
+                var day = date.getDate().toString();
+                day = day.length > 1 ? day : '0' + day;
+
+                final = year + '-' + month + '-' + day;
+
+                return final.toString();
+            }
     </script>
 
 
