@@ -84,12 +84,8 @@ app.get('/insert', function (req, res, next) {
 
 
 app.post('/insert', function (req, res, next) {
-  var qParams = [];
-  for (var p in req.body) {
-    qParams.push({ 'name': p, 'value': req.body[p] })
-  }
-  console.log(qParams);
-  console.log(req.body);
+  console.log("POST INSERT")
+  console.log(req.insert_data);
 });
 
 
