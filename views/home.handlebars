@@ -316,13 +316,12 @@
 
             var req = new XMLHttpRequest();
             var edit_request = {}
-            var req = new XMLHttpRequest();
-            var id = document.getElementById('edit-id').value;
-            var name = document.getElementById('edit-name').value;
-            var reps = document.getElementById('edit-reps').value;
-            var weight = document.getElementById('edit-weight').value;
-            var date = document.getElementById('edit-date').value;
-            var unit = document.querySelector('input[name = "edit-unit"]:checked').value;
+            id = document.getElementById('edit-id').value;
+            name = document.getElementById('edit-name').value;
+            reps = document.getElementById('edit-reps').value;
+            weight = document.getElementById('edit-weight').value;
+            date = document.getElementById('edit-date').value;
+            unit = document.querySelector('input[name = "edit-unit"]:checked').value;
 
             if (reps == "") {
                 reps = -1
