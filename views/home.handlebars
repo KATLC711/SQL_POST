@@ -283,7 +283,19 @@
                 if (req.status >= 200 && req.status < 400) {
                     var response = JSON.parse(req.responseText);
                     var response2 = JSON.parse(response.results);
-                    console.log(response2)
+
+                    document.getElementById('edit-name') = response2.name
+                    document.getElementById('edit-reps') = response2.reps
+                    document.getElementById('edit-weight') = response2.weight
+                    document.getElementById('edit-date') = response2.date
+                    if (response2.unit == "kg") {
+                        document.getElementById("edit-kg").checked = true
+                    } else if (response2.unit == "lbs") {
+                        document.getElementById("edit-lbs").checked = true
+                    } else {
+                        document.getElementById("edit-na").checked = true
+                    }
+
                 } else {
                     console.log("Error in network request: " + req.statusText);
                 }
@@ -332,6 +344,13 @@
 
             return final.toString();
         }
+
+
+        function closeEditForm() {
+            document.getElementById("edit-form").style.display = "none";
+        }
+
+
     </script>
 
 
