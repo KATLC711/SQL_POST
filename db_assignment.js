@@ -97,7 +97,7 @@ app.post('/insert_post', function (req, res, next) {
       next(err);
       return;
     }
-    res.redirect("/pull_post")
+    res.redirect("/pull_get")
   });
 
 });
