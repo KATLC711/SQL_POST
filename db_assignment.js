@@ -181,6 +181,29 @@ app.get('/edit_pull_get', function (req, res, next) {
 
 
 
+app.get('/edit_get', function (req, res, next) {
+  var context = {};
+  mysql.pool.query("SELECT * FROM exercise WHERE id=?", [req.query.id], function (err, result) {
+    if (err) {
+      next(err);
+      return;
+    }
+    if (result.length == 1) {
+      var curVals = result[0];
+      mysql.pool.query("UPDATE exercise SET name=?,reps=?,weight=?,date=?,unit=? WHERE id=? ",
+        [req.query.name || curVals.name, req.query.reps || curVals.reps, req.query.weight || curVals.weight, req.query.date || curVals.date, req.query.unit || curVals.unit, req.query.id],
+        function (err, result) {
+          if (err) {
+            next(err);
+            return;
+          }
+          res.redirect("/pull_get");
+        });
+    }
+  });
+});
+
+
 
 
 
