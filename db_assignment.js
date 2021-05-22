@@ -85,7 +85,7 @@ app.get('/insert', function (req, res, next) {
 
 app.post('/insert', function (req, res, next) {
   console.log("POST INSERT")
-  console.log(req.insert_data);
+  console.log(req);
 });
 
 
