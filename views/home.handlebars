@@ -58,7 +58,7 @@
                     <td>{{this.weight}}</td>
                     <td>{{this.date}}</td>
                     <td>{{this.unit}}</td>
-                    <td><button onclick="Delete_Record({{this.id}});"></button></td>
+                    <td>{{this.name}}</td>
                     <td>{{this.name}}</td>
                 </tr>
                 {{/each}}
@@ -224,18 +224,6 @@
                 TBodyRow.appendChild(TBodyContent)
 
 
-                var TBodyContent = document.createElement("td")
-                var delete_btn = document.createElement('button');
-                let delete_id = rows[i].id
-                delete_btn.innerHTML = 'Delete';
-
-                req.send(JSON.stringify(delete_data));
-                event.preventDefault();
-
-                TBodyContent.appendChild(delete_btn)
-                TBodyRow.appendChild(TBodyContent)
-
-                TBodyTag.appendChild(TBodyRow)
             }
         }
 
