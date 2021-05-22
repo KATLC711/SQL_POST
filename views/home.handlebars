@@ -342,6 +342,8 @@
             edit_request.unit = unit
             edit_request.id = id
 
+            console.log(edit_request)
+
             req.open('POST', '/', true);
             req.setRequestHeader('Content-Type', 'application/json');
             req.addEventListener('load', function () {
