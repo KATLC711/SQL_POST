@@ -35,7 +35,7 @@ app.get('/', function (req, res, next) {
 });
 
 
-app.get('/pull', function (req, res, next) {
+app.get('/pull_get', function (req, res, next) {
   var context = {};
   console.log("GET PULL")
   mysql.pool.query('SELECT * FROM exercise', function (err, rows, fields) {
@@ -53,7 +53,7 @@ app.get('/pull', function (req, res, next) {
 });
 
 
-app.post('/pull', function (req, res, next) {
+app.post('/pull_post', function (req, res, next) {
   var context = {};
   console.log("POST PULL")
   mysql.pool.query('SELECT * FROM exercise', function (err, rows, fields) {
@@ -81,7 +81,7 @@ app.get('/insert', function (req, res, next) {
       next(err);
       return;
     }
-    res.redirect("/pull")
+    res.redirect("/pull_get")
 
   });
 });
@@ -90,65 +90,70 @@ app.get('/insert', function (req, res, next) {
 
 app.post('/insert', function (req, res, next) {
   console.log("POST INSERT")
-  console.log(req.body);
-});
+  mysql.pool.query("INSERT INTO exercise (`name`,`reps`,`weight`,`date`,`unit`) VALUES (?,?,?,?,?)", [req.body.name, req.body.reps, req.body.weight, req.body.date, req.body.unit], function (err, result) {
+    if (err) {
+      next(err);
+      return;
+    }
+    res.redirect("/pull_post")
+  });
 
 
 
 
 
-app.use(function (req, res) {
-  res.status(404);
-  res.render('404');
-});
+  app.use(function (req, res) {
+    res.status(404);
+    res.render('404');
+  });
 
-app.use(function (err, req, res, next) {
-  console.error(err.stack);
-  res.status(500);
-  res.render('500');
-});
+  app.use(function (err, req, res, next) {
+    console.error(err.stack);
+    res.status(500);
+    res.render('500');
+  });
 
-app.listen(app.get('port'), function () {
-  console.log('Express started on http://localhost:' + app.get('port') + '; press Ctrl-C to terminate.');
-});
-
-
-
-
-
-function getFormattedDate(date_unformmated) {
-
-  var date = new Date(date_unformmated)
-
-  var year = date.getFullYear();
-
-  var month = (1 + date.getMonth()).toString();
-  month = month.length > 1 ? month : '0' + month;
-
-  var day = date.getDate().toString();
-  day = day.length > 1 ? day : '0' + day;
-
-  final = month + '-' + day + '-' + year;
-
-  return final.toString();
-}
+  app.listen(app.get('port'), function () {
+    console.log('Express started on http://localhost:' + app.get('port') + '; press Ctrl-C to terminate.');
+  });
 
 
 
 
-function getFormattedDateYMR(date_unformmated) {
 
-  var date = new Date(date_unformmated)
+  function getFormattedDate(date_unformmated) {
 
-  var year = date.getFullYear();
+    var date = new Date(date_unformmated)
 
-  var month = (1 + date.getMonth()).toString();
-  month = month.length > 1 ? month : '0' + month;
+    var year = date.getFullYear();
 
-  var day = date.getDate().toString();
-  day = day.length > 1 ? day : '0' + day;
+    var month = (1 + date.getMonth()).toString();
+    month = month.length > 1 ? month : '0' + month;
 
-  final = year + '-' + month + '-' + day;
+    var day = date.getDate().toString();
+    day = day.length > 1 ? day : '0' + day;
 
-  return final.toString();
-}
+    final = month + '-' + day + '-' + year;
+
+    return final.toString();
+  }
+
+
+
+
+  function getFormattedDateYMR(date_unformmated) {
+
+    var date = new Date(date_unformmated)
+
+    var year = date.getFullYear();
+
+    var month = (1 + date.getMonth()).toString();
+    month = month.length > 1 ? month : '0' + month;
+
+    var day = date.getDate().toString();
+    day = day.length > 1 ? day : '0' + day;
+
+    final = year + '-' + month + '-' + day;
+
+    return final.toString();
+  }
