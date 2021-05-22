@@ -40,11 +40,7 @@ app.get('/', function (req, res, next) {
         var weight = rows[i].weight
       }
 
-      if (rows[i].unit == "na") {
-        var unit = ""
-      } else {
-        var unit = rows[i].unit
-      }
+
 
 
       if (getFormattedDate(rows[i].date) == '9999-12-31') {
