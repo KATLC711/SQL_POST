@@ -49,7 +49,7 @@ app.get('/', function (req, res, next) {
       if (getFormattedDate(rows[i].date) == '12-31-9999') {
         var date = ""
       } else {
-        var date = rows[i].getFormattedDate(rows[i].date)
+        var date = getFormattedDate(rows[i].date)
       }
 
       query_result.push({ 'id': rows[i].id, 'name': rows[i].name, 'reps': reps, 'weight': weight, 'date': date, 'unit': unit })
