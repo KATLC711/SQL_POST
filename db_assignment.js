@@ -15,23 +15,6 @@ app.set('view engine', 'handlebars');
 app.set('port', 3636);
 
 
-function getFormattedDate(date_unformmated) {
-
-  var date = new Date(date_unformmated)
-
-  var year = date.getFullYear();
-
-  var month = (1 + date.getMonth()).toString();
-  month = month.length > 1 ? month : '0' + month;
-
-  var day = date.getDate().toString();
-  day = day.length > 1 ? day : '0' + day;
-
-  final = month + '-' + day + '-' + year;
-
-  return final.toString();
-}
-
 
 app.get('/', function (req, res, next) {
   var context = {};
@@ -194,6 +177,25 @@ function getFormattedDateYMR(date_unformmated) {
   day = day.length > 1 ? day : '0' + day;
 
   final = year + '-' + month + '-' + day;
+
+  return final.toString();
+}
+
+
+
+function getFormattedDate(date_unformmated) {
+
+  var date = new Date(date_unformmated)
+
+  var year = date.getFullYear();
+
+  var month = (1 + date.getMonth()).toString();
+  month = month.length > 1 ? month : '0' + month;
+
+  var day = date.getDate().toString();
+  day = day.length > 1 ? day : '0' + day;
+
+  final = month + '-' + day + '-' + year;
 
   return final.toString();
 }
