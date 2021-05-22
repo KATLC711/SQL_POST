@@ -43,7 +43,7 @@ app.post('/', function (req, res, next) {
 
   if (req.body.typ == "Insert") {
     console.log("Insert")
-    mysql.pool.query("INSERT INTO exercise (`name`,`reps`,`weight`,`date`,`unit`) VALUES (?,?,?,?,?)", [req.query.name, req.query.reps, req.query.weight, req.query.date, req.query.unit], function (err, result) {
+    mysql.pool.query("INSERT INTO exercise (`name`,`reps`,`weight`,`date`,`unit`) VALUES (?,?,?,?,?)", [req.body.name, req.body.reps, req.body.weight, req.body.date, req.body.unit], function (err, result) {
       if (err) {
         next(err);
         return;
