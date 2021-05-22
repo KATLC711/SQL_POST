@@ -12,8 +12,8 @@ app.set('port', 3636);
 
 
 
-app.get('/', function (req, res) {
-  res.send('hello world')
+app.post('/', function (req, res) {
+  res.send('POST request to the homepage')
 })
 
 
