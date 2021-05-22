@@ -201,10 +201,9 @@
                 TBodyRow.appendChild(TBodyContent)
 
 
-
+                let record_id = rows[i].id
                 var TBodyContent = document.createElement("td")
                 var delete_btn = document.createElement('button');
-                let record_id = rows[i].id
                 delete_btn.innerHTML = 'Delete - GET';
                 delete_btn.onclick = function () {
 
@@ -228,9 +227,10 @@
                 TBodyRow.appendChild(TBodyContent)
 
 
+
+
                 var TBodyContent = document.createElement("td")
                 var delete_btn = document.createElement('button');
-                let record_id = rows[i].id
                 delete_btn.innerHTML = 'Delete - POST';
                 delete_btn.onclick = function () {
 
