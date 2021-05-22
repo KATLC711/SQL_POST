@@ -42,6 +42,7 @@ app.post('/', function (req, res, next) {
 
 
   if (req.body.typ == "Delete") {
+    console.log("Delete")
     mysql.pool.query("DELETE FROM exercise WHERE id=?", [req.query.id], function (err, result) {
       if (err) {
         next(err);
