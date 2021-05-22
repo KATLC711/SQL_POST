@@ -125,7 +125,7 @@ app.get('/delete', function (req, res, next) {
       return;
     }
     console.log(result)
-    res.redirect("/pull");
+    res.redirect("/pull_get");
   });
 });
 
