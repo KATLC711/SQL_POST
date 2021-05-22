@@ -351,6 +351,7 @@
                     var response2 = JSON.parse(response.results);
                     closeEditForm();
                     //console.log(response2)
+                    delete id, name, reps, weight, date, unit;
                     DOMtable(response2);
 
                 } else {
