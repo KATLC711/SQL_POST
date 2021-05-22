@@ -162,7 +162,8 @@ app.post('/delete_post', function (req, res, next) {
 app.get('/edit_pull_get', function (req, res, next) {
   var context = {};
   console.log("GET EDIT")
-  mysql.pool.query("SELECT * FROM exercise WHERE id=?", [req.query.id], function (err, result) {
+  console.log(req.query.id)
+  mysql.pool.query("SELECT * FROM exercise WHERE id=?", [req.query.id], function (err, rows, result) {
     if (err) {
       next(err);
       return;
@@ -171,6 +172,7 @@ app.get('/edit_pull_get', function (req, res, next) {
     for (i = 0; i < rows.length; i++) {
       query_result.push({ 'id': rows[i].id, 'name': rows[i].name, 'reps': rows[i].reps, 'weight': rows[i].weight, 'date': getFormattedDate(rows[i].date), 'unit': rows[i].unit })
     }
+    console.log(context)
     context.results = JSON.stringify(query_result);
     res.send(context);
   });
