@@ -117,18 +117,7 @@
                 if (req.status >= 200 && req.status < 400) {
                     console.log("Delete Success")
 
-                    var req2 = new XMLHttpRequest();
-                    req2.open('GET', '/', true);
-                    req2.addEventListener('load', function () {
-                        if (req2.status >= 200 && req2.status < 400) {
 
-                            console.log("Delete Reload Success")
-
-                        } else {
-                            console.log("Error in network request: " + req.statusText);
-                        }
-                    });
-                    req2.send(null);
 
 
                 } else {
@@ -140,6 +129,77 @@
 
         };
 
+
+
+        function DOMtable(rows) {
+
+
+            var TBodyTag = document.getElementById('content-table')
+            TBodyTag.innerHTML = '';
+
+            for (i = 0; i < rows.length; i++) {
+                var TBodyRow = document.createElement("tr")
+
+                var TBodyContent = document.createElement("td")
+                TBodyContent.textContent = rows[i].name
+                TBodyRow.appendChild(TBodyContent)
+
+                var TBodyContent = document.createElement("td")
+
+                if (rows[i].reps == -1) {
+                    TBodyContent.textContent = ""
+                } else {
+                    TBodyContent.textContent = rows[i].reps
+                }
+                TBodyRow.appendChild(TBodyContent)
+
+
+
+                var TBodyContent = document.createElement("td")
+                if (rows[i].weight == -1) {
+                    TBodyContent.textContent = ""
+                } else {
+                    TBodyContent.textContent = rows[i].weight
+                }
+                TBodyRow.appendChild(TBodyContent)
+
+
+
+
+                var TBodyContent = document.createElement("td")
+                if (getFormattedDateYMR(rows[i].date) == "9999-12-31") {
+                    TBodyContent.textContent = ""
+                } else {
+                    TBodyContent.textContent = getFormattedDate(rows[i].date)
+                }
+                TBodyRow.appendChild(TBodyContent)
+
+
+
+                var TBodyContent = document.createElement("td")
+
+                if (rows[i].unit == "na") {
+                    TBodyContent.textContent = ""
+                } else {
+                    TBodyContent.textContent = rows[i].unit
+                }
+                TBodyRow.appendChild(TBodyContent)
+
+
+
+                var TBodyContent = document.createElement("td")
+                var delete_btn = document.createElement('button');
+                let record_id = rows[i].id
+                delete_btn.innerHTML = 'Delete';
+                delete_btn.onclick = Delete(record_id);
+                TBodyContent.appendChild(delete_btn)
+                TBodyRow.appendChild(TBodyContent)
+
+
+
+            }
+
+        }
 
 
     </script>
