@@ -26,16 +26,16 @@ app.get('/', function (req, res, next) {
     }
     query_result = []
     for (i = 0; i < rows.length; i++) {
+
       if (rows[i].reps == -1) {
-        rows[i].reps == ""
+        var reps == ""
+      } else {
+        var reps = rows[i].reps
       }
-      if (rows[i].weight == -1) {
-        rows[i].weight == ""
-      }
-      if (getFormattedDateYMR(rows[i].date) == "9999-12-31") {
-        row[i].date = ""
-      }
-      query_result.push({ 'id': rows[i].id, 'name': rows[i].name, 'reps': rows[i].reps, 'weight': rows[i].weight, 'date': getFormattedDate(rows[i].date), 'unit': rows[i].unit })
+
+
+
+      query_result.push({ 'id': rows[i].id, 'name': rows[i].name, 'reps': reps, 'weight': rows[i].weight, 'date': getFormattedDate(rows[i].date), 'unit': rows[i].unit })
     }
     context.results = query_result;
     res.render("home", context)
