@@ -86,7 +86,7 @@ app.get('/insert', function (req, res, next) {
 app.post('/insert', function (req, res, next) {
   var context = {};
   console.log("POST INSERT")
-  console.log(req.body)
+  console.log(req)
 });
 
 
