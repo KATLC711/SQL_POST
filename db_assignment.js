@@ -49,10 +49,7 @@ app.post('/', function (req, res, next) {
         return;
       }
     });
-  }
-
-
-  if (req.body.typ == "Delete") {
+  } else if (req.body.typ == "Delete") {
     console.log("Delete")
     mysql.pool.query("DELETE FROM exercise WHERE id=?", [req.body.id], function (err, result) {
       if (err) {
