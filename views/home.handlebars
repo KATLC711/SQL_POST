@@ -328,7 +328,7 @@
             }
 
 
-            console.log(document.getElementById("edit-weight"))
+            console.log(typeof (document.getElementById("edit-weight"))
             if (document.getElementById("edit-weight") == "") {
                 edit_request.weight = -1
             } else {
@@ -344,7 +344,7 @@
                 edit_request.date = document.getElementById("edit-date")
             }
 
-            console.log(edit_request)
+
             req.open('POST', '/', true);
             req.setRequestHeader('Content-Type', 'application/json');
             req.addEventListener('load', function () {
@@ -352,7 +352,7 @@
                     var response = JSON.parse(req.responseText);
                     var response2 = JSON.parse(response.results);
                     closeEditForm();
-                    console.log(response2)
+                    //console.log(response2)
                     DOMtable(response2);
 
                 } else {
