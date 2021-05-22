@@ -38,6 +38,33 @@ app.get('/', function (req, res, next) {
 
 
 
+app.post('/', function (req, res, next) {
+
+
+  if (req.body.typ == "Delete") {
+    mysql.pool.query("DELETE FROM exercise WHERE id=?", [req.query.id], function (err, result) {
+      if (err) {
+        next(err);
+        return;
+      }
+    });
+  }
+
+
+
+  query_result = []
+  for (i = 0; i < rows.length; i++) {
+    query_result.push({ 'id': rows[i].id, 'name': rows[i].name, 'reps': rows[i].reps, 'weight': rows[i].weight, 'date': getFormattedDate(rows[i].date), 'unit': rows[i].unit })
+  }
+  context.results = query_result;
+  res.render("home", context)
+
+});
+
+
+
+
+
 
 
 

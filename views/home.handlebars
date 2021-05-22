@@ -49,8 +49,7 @@
                     <th>Weight</th>
                     <th>Date</th>
                     <th>Unit</th>
-                    <th>Delete-GET</th>
-                    <th>Delete-POST</th>
+                    <th>Delete</th>
                     <th>Edit</th>
                 </tr>
             </thead>
@@ -62,8 +61,7 @@
                     <td>{{this.weight}}</td>
                     <td>{{this.date}}</td>
                     <td>{{this.unit}}</td>
-                    <td>{{this.name}}</td>
-                    <td>{{this.name}}</td>
+                    <td><button onclick="Delete({{this.id}})">Click me</button></td>
                     <td>{{this.name}}</td>
                 </tr>
                 {{/each}}
@@ -106,269 +104,28 @@
     <script>
 
 
-        PullData()
 
-
-        function PullData() {
+        function Delete(id) {
 
             var req = new XMLHttpRequest();
-            req.open('GET', '/', true);
+            var delete_data = {}
+            delete_data.typ = "Delete"
+            delete_data.id = id
+            req.open('POST', '/', true);
+            req.setRequestHeader('Content-Type', 'application/json');
             req.addEventListener('load', function () {
                 if (req.status >= 200 && req.status < 400) {
-
                     var response = JSON.parse(req.responseText);
                     var response2 = JSON.parse(response.results);
-                    console.log(response2)
                     DOMtable(response2);
-
                 } else {
                     console.log("Error in network request: " + req.statusText);
                 }
             });
-            req.send(null);
+            req.send(JSON.stringify(delete_data));
+            event.preventDefault();
 
         };
-
-
-
-
-
-
-        function DOMtable(rows) {
-
-
-            var TBodyTag = document.getElementById('content-table')
-            TBodyTag.innerHTML = '';
-
-            for (i = 0; i < rows.length; i++) {
-                var TBodyRow = document.createElement("tr")
-
-                var TBodyContent = document.createElement("td")
-                TBodyContent.textContent = rows[i].name
-                TBodyRow.appendChild(TBodyContent)
-
-                var TBodyContent = document.createElement("td")
-
-                if (rows[i].reps == -1) {
-                    TBodyContent.textContent = ""
-                } else {
-                    TBodyContent.textContent = rows[i].reps
-                }
-                TBodyRow.appendChild(TBodyContent)
-
-
-
-                var TBodyContent = document.createElement("td")
-                if (rows[i].weight == -1) {
-                    TBodyContent.textContent = ""
-                } else {
-                    TBodyContent.textContent = rows[i].weight
-                }
-                TBodyRow.appendChild(TBodyContent)
-
-
-
-
-                var TBodyContent = document.createElement("td")
-                if (getFormattedDateYMR(rows[i].date) == "9999-12-31") {
-                    TBodyContent.textContent = ""
-                } else {
-                    TBodyContent.textContent = getFormattedDate(rows[i].date)
-                }
-                TBodyRow.appendChild(TBodyContent)
-
-
-
-                var TBodyContent = document.createElement("td")
-
-                if (rows[i].unit == "na") {
-                    TBodyContent.textContent = ""
-                } else {
-                    TBodyContent.textContent = rows[i].unit
-                }
-                TBodyRow.appendChild(TBodyContent)
-
-
-                let record_id = rows[i].id
-                var TBodyContent = document.createElement("td")
-                var delete_btn_get = document.createElement('button');
-                delete_btn_get.innerHTML = 'Delete - GET';
-                delete_btn_get.onclick = function () {
-
-                    var req = new XMLHttpRequest();
-                    req.open('GET', '/delete_get?id=' + record_id, true);
-                    req.addEventListener('load', function () {
-                        if (req.status >= 200 && req.status < 400) {
-                            var response = JSON.parse(req.responseText);
-                            var response2 = JSON.parse(response.results);
-                            DOMtable(response2);
-
-                            return;
-                        } else {
-                            console.log("Error in network request: " + req.statusText);
-                        }
-                    });
-                    req.send(null);
-                    event.preventDefault();
-                };
-                TBodyContent.appendChild(delete_btn_get)
-                TBodyRow.appendChild(TBodyContent)
-
-
-
-
-                var TBodyContent = document.createElement("td")
-                var delete_btn_post = document.createElement('button');
-                delete_btn_post.innerHTML = 'Delete - POST';
-                delete_btn_post.onclick = function () {
-
-                    var req = new XMLHttpRequest();
-                    var delete_data = {}
-                    delete_data.id = record_id
-                    req.open('POST', '/delete_post', true);
-                    req.setRequestHeader('Content-Type', 'application/json');
-                    req.addEventListener('load', function () {
-                        if (req.status >= 200 && req.status < 400) {
-                            var response = JSON.parse(req.responseText);
-                            var response2 = JSON.parse(response.results);
-                            DOMtable(response2);
-                        } else {
-                            console.log("Error in network request: " + req.statusText);
-                        }
-                    });
-                    req.send(JSON.stringify(delete_data));
-                    event.preventDefault();
-
-                };
-
-
-                TBodyContent.appendChild(delete_btn_post)
-                TBodyRow.appendChild(TBodyContent)
-
-
-
-                var TBodyContent = document.createElement("td")
-                var edit_btn = document.createElement('button');
-                let edit_id = rows[i].id
-
-                edit_btn.innerHTML = 'Edit';
-                edit_btn.onclick = function () {
-
-
-                    var req = new XMLHttpRequest();
-                    req.open('GET', '/edit_pull_get?id=' + edit_id, true);
-                    req.addEventListener('load', function () {
-                        if (req.status >= 200 && req.status < 400) {
-                            var response = JSON.parse(req.responseText);
-                            var response2 = JSON.parse(response.results);
-                            console.log(response2)
-                            console.log(response2.name)
-
-                            closeEditForm()
-                            OpenEditForm(response2.id, response2.name, response2.reps, response2.weight, response2.date, response2.unit)
-
-
-                            return;
-                        } else {
-                            console.log("Error in network request: " + req.statusText);
-                        }
-                    });
-                    req.send(null);
-                    event.preventDefault();
-
-
-                }
-                TBodyContent.appendChild(edit_btn)
-                TBodyRow.appendChild(TBodyContent)
-                TBodyTag.appendChild(TBodyRow)
-
-            }
-
-            return
-        }
-
-
-
-
-        function closeEditForm() {
-            document.getElementById("edit-form").style.display = "none";
-        }
-
-
-        function OpenEditForm(id, name, reps, weight, date, unit) {
-
-            document.getElementById("edit-form").style.display = "block";
-            document.getElementById("edit-id").value = id;
-            document.getElementById("edit-name").defaultValue = name;
-
-
-            if (reps != -1) {
-                document.getElementById("edit-reps").defaultValue = reps
-            } else {
-                document.getElementById("edit-reps").defaultValue = ""
-            }
-
-            if (weight != -1) {
-                document.getElementById("edit-weight").defaultValue = weight
-            } else {
-                document.getElementById("edit-weight").defaultValue = ""
-            }
-
-
-
-            if (getFormattedDateYMR(date) != "9999-12-31") {
-                document.getElementById("edit-date").defaultValue = getFormattedDateYMR(date)
-            } else {
-                document.getElementById("edit-date").defaultValue = ""
-            }
-
-
-
-            if (unit == "kg") {
-                document.getElementById("edit-kg").checked = true
-            } else if (unit == "lbs") {
-                document.getElementById("edit-lbs").checked = true
-            } else {
-                document.getElementById("edit-na").checked = true
-            }
-        }
-
-
-
-        function getFormattedDateYMR(date_unformmated) {
-
-            var date = new Date(date_unformmated)
-
-            var year = date.getFullYear();
-
-            var month = (1 + date.getMonth()).toString();
-            month = month.length > 1 ? month : '0' + month;
-
-            var day = date.getDate().toString();
-            day = day.length > 1 ? day : '0' + day;
-
-            final = year + '-' + month + '-' + day;
-
-            return final.toString();
-        }
-
-
-        function getFormattedDate(date_unformmated) {
-
-            var date = new Date(date_unformmated)
-
-            var year = date.getFullYear();
-
-            var month = (1 + date.getMonth()).toString();
-            month = month.length > 1 ? month : '0' + month;
-
-            var day = date.getDate().toString();
-            day = day.length > 1 ? day : '0' + day;
-
-            final = month + '-' + day + '-' + year;
-
-            return final.toString();
-        }
 
 
 
