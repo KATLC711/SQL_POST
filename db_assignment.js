@@ -88,7 +88,7 @@ app.get('/insert', function (req, res, next) {
 
 
 
-app.post('/insert', function (req, res, next) {
+app.post('/insert_post', function (req, res, next) {
   console.log("POST INSERT")
 
   mysql.pool.query("INSERT INTO exercise (`name`,`reps`,`weight`,`date`,`unit`) VALUES (?,?,?,?,?)", [req.body.name, req.body.reps, req.body.weight, req.body.date, req.body.unit], function (err, result) {
