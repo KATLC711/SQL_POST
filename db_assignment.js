@@ -165,6 +165,7 @@ app.post('/', function (req, res, next) {
         query_result.push({ 'id': rows[i].id, 'name': rows[i].name, 'reps': reps, 'weight': weight, 'date': date, 'unit': unit })
       }
       context.results = JSON.stringify(query_result[0]);
+      console.log(context)
       res.send(context);
     });
 
@@ -201,8 +202,6 @@ app.post('/', function (req, res, next) {
           res.send(context);
 
         });
-
-
 
       });
   }
