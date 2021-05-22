@@ -136,6 +136,32 @@ app.post('/', function (req, res, next) {
       }
       query_result = []
       for (i = 0; i < rows.length; i++) {
+        if (rows[i].reps == -1) {
+          var reps = ""
+        } else {
+          var reps = rows[i].reps
+        }
+
+
+        if (rows[i].weight == -1) {
+          var weight = ""
+        } else {
+          var weight = rows[i].weight
+        }
+
+        if (rows[i].unit == "na") {
+          var unit = ""
+        } else {
+          var unit = rows[i].unit
+        }
+
+
+        if (getFormattedDate(rows[i].date) == '12-31-9999') {
+          var date = ""
+        } else {
+          var date = getFormattedDate(rows[i].date)
+        }
+
         query_result.push({ 'id': rows[i].id, 'name': rows[i].name, 'reps': reps, 'weight': weight, 'date': date, 'unit': unit })
       }
       context.results = query_result[0];
