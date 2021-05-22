@@ -289,7 +289,7 @@
                     document.getElementById("edit-name").value = response2.name
                     document.getElementById('edit-reps').value = response2.reps
                     document.getElementById('edit-weight').value = response2.weight
-                    document.getElementById('edit-date').value = response2.date
+                    document.getElementById('edit-date').value = getFormattedDateYMR(response2.date)
                     document.getElementById('edit-id').value = response2.id
 
                     if (response2.unit == "kg") {
