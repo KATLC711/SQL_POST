@@ -172,7 +172,7 @@ app.get('/edit_pull_get', function (req, res, next) {
     for (i = 0; i < rows.length; i++) {
       query_result.push({ 'id': rows[i].id, 'name': rows[i].name, 'reps': rows[i].reps, 'weight': rows[i].weight, 'date': getFormattedDate(rows[i].date), 'unit': rows[i].unit })
     }
-    console.log(context)
+    console.log(query_result)
     context.results = JSON.stringify(query_result);
     res.send(context);
   });
