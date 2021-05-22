@@ -32,6 +32,7 @@ app.get('/', function (req, res, next) {
 
 app.get('/pull', function (req, res, next) {
   var context = {};
+  console.log("GET PULL")
   mysql.pool.query('SELECT * FROM exercise', function (err, rows, fields) {
     if (err) {
       next(err);
@@ -49,6 +50,7 @@ app.get('/pull', function (req, res, next) {
 
 app.post('/pull', function (req, res, next) {
   var context = {};
+  console.log("POST PULL")
   mysql.pool.query('SELECT * FROM exercise', function (err, rows, fields) {
     if (err) {
       next(err);
