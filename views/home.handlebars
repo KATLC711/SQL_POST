@@ -156,29 +156,6 @@
 
 
 
-        function Delete_Record(id) {
-
-            var req = new XMLHttpRequest();
-            var delete_data = {}
-            delete_data.typ = "Delete"
-            delete_data.id = id
-            req.open('POST', '/', true);
-            req.setRequestHeader('Content-Type', 'application/json');
-            req.addEventListener('load', function () {
-                if (req.status >= 200 && req.status < 400) {
-                    console.log("Delete Success")
-                    var response = JSON.parse(req.responseText);
-                    var response2 = JSON.parse(response.results);
-                    DOMtable(response2);
-
-                } else {
-                    console.log("Error in network request: " + req.statusText);
-                }
-            });
-            req.send(JSON.stringify(delete_data));
-            event.preventDefault();
-
-        };
 
 
 
@@ -262,6 +239,31 @@
             }
 
         }
+
+
+        function Delete_Record(id) {
+
+            var req = new XMLHttpRequest();
+            var delete_data = {}
+            delete_data.typ = "Delete"
+            delete_data.id = id
+            req.open('POST', '/', true);
+            req.setRequestHeader('Content-Type', 'application/json');
+            req.addEventListener('load', function () {
+                if (req.status >= 200 && req.status < 400) {
+                    console.log("Delete Success")
+                    var response = JSON.parse(req.responseText);
+                    var response2 = JSON.parse(response.results);
+                    DOMtable(response2);
+
+                } else {
+                    console.log("Error in network request: " + req.statusText);
+                }
+            });
+            req.send(JSON.stringify(delete_data));
+            event.preventDefault();
+
+        };
 
 
 
